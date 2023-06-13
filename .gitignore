@@ -1,0 +1,4 @@
+venv
+infohound/migrations
+infohound/infohound_config.py
+infohound/tool/downloaded_files/*

@@ -1,0 +1,7 @@
+<domain> "e-mail"
+<domain> *@<domain>
+intext:"@<domain>" (site:linkedin.com OR site:github.com)
+intext:"@<domain>" (site:twitter.com OR site:facebook.com OR site:instagram.com)
+intext:"@<domain>" (filetype:log OR filetype:sql OR site:pastebin.com)
+intext:"@<domain>" (filetype:pdf OR filetype:doc OR filetype:docx)
+intext:"@<domain>" (inurl:email OR inurl:contacts OR inurl:about)

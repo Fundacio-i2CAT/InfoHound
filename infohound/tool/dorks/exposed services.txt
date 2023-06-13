@@ -1,0 +1,6 @@
+inurl:_layouts/15/viewlsts.aspx 
+site:<domain> intitle:index.of | ext:log | ext:php intitle:phpinfo "published by the PHP Group" | inurl:shell | inurl:backdoor | inurl:wso | inurl:cmd | shadow | passwd | boot.ini | inurl:backdoor | inurl:readme | inurl:license | inurl:install | inurl:setup | inurl:config | inurl:"/phpinfo.php" | inurl:".htaccess" | ext:swf
+site:<domain> inurl:wp-content | inurl:wp-includes
+intitle:traefik inurl:8080/dashboard "<domain>"
+intitle:"Dashboard [Jenkins]" "<domain>"
+site:<domain> inurl:signup | inurl:register | intitle:Signup

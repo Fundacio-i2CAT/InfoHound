@@ -1,0 +1,3 @@
+site:<domain> intext:"sql syntax near" | intext:"syntax error has occurred" | intext:"incorrect syntax near" | intext:"unexpected end of SQL command" | intext:"Warning: mysql_connect()" | intext:"Warning: mysql_query()" | intext:"Warning: pg_connect()"
+site:<domain> "PHP Parse error" | "PHP Warning" | "PHP Error"
+site:<domain> inurl:redir | inurl:url | inurl:redirect | inurl:return | inurl:src=http | inurl:r=http

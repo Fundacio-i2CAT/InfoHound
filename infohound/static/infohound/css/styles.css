@@ -1,0 +1,18 @@
+.my-background {
+  background-image: url('/static/infohound/imgs/colorkit_3.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navbar {
+  background-color: #003f5c;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #58508d;
+}
+
+h2 {
+  color: white;
+}
