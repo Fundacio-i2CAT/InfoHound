@@ -1,0 +1,10 @@
+site:trello.com | site:*.atlassian.net "<domain>"
+site:github.com | site:gitlab.com | site:bitbucket.org "<domain>"
+site:.s3.amazonaws.com | site:storage.googleapis.com | site:amazonaws.com "<domain>"
+site:sharecode.io | site:controlc.com | site:codepad.co |site:ideone.com | site:codebeautify.org | site:jsdelivr.com | site:codeshare.io | site:codepen.io | site:repl.it | site:jsfiddle.net "<domain>"
+site:gitter.im | site:papaly.com | site:productforums.google.com | site:coggle.it | site:replt.it | site:ycombinator.com | site:libraries.io | site:npm.runkit.com | site:npmjs.com | site:scribd.com "<domain>"
+site:stackoverflow.com "<domain>"
+site:justpaste.it | site:heypasteit.com | site:pastebin.com "<domain>"
+site:linkedin.com employees <domain>
+intext:"<domain>" site:linkedin.com/in
+intext:"<domain>" site:facebook.com

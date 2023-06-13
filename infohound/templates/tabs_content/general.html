@@ -1,0 +1,129 @@
+<div class="container">
+
+  <h2 class="text-center mt-4">Domain overview</h2>
+  
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-md mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Domain</h5>
+            <p id="domain-name" class="lead"></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Registrar</h5>
+            <p id="domain-registrar" class="lead"></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Creation</h5>
+            <p id="domain-creation" class="lead"></span></p>
+            <hr>
+            <h5 class="card-title fw-bold">Expiration</h5>
+            <p id="domain-expiration" class="lead"></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow">
+          <div id="domain-NS" class="card-body">
+            <h5 class="card-title fw-bold">Name servers</h5>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-3">
+          <div class="card text-center shadow">
+            <div id="domain-NS" class="card-body">
+              <h5 class="card-title fw-bold">DNS Records</h5>
+              <div class="row">
+                <div id="dns-A-records" class="col-md-4 mb-3">
+                  <h6 class="card-title fw-bold">A</h6>
+                  </span>
+                </div>
+                <div id="dns-AAAA-records" class="col-md-4 mb-3">
+                  <h6 class="card-title fw-bold">AAAA</h6>
+                  </span>
+                </div>
+                <div id="dns-MX-records" class="col-md-4 mb-3">
+                  <h6 class="card-title fw-bold">MX</h6>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <hr style="color: white;">
+  <h2 class="text-center mt-4">Findings</h2>
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">URLs</h5>
+            <p id="urls-count-stats" class="display-3"></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Subdomains</h5>
+            <p id="subdomains-count-stats" class="display-3"></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">People</h5>
+            <p id="people-count-stats" class="display-3"></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Files</h5>
+            <p id="files-count-stats" class="display-3"></span></p>
+          </div>
+        </div>
+      </div>    
+    </div>  
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Emails</h5>
+            <div class="row justify-content-center">
+              <div class="col-12 col-sm-6 col-md-3">
+                <canvas id="email-chart-leak"></canvas>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3">
+                <canvas id="email-chart-spoof"></canvas>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3">
+                <canvas id="email-chart-people"></canvas>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3">
+                <canvas id="email-chart-services"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

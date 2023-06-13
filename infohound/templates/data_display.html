@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Data Display{% endblock %}
+
+{% block content %}
+<h1>Data Display</h1>
+
+<!-- Domain card -->
+<div class="card mb-4" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Domain: example.com</h5>
+        <p class="card-text">Whois Info: [Placeholder]</p>
+        <p class="card-text">Has Email Server: [Placeholder]</p>
+    </div>
+</div>
+
+<!-- Tabs -->
+<ul class="nav nav-tabs" id="dataTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="people-tab" data-bs-toggle="tab" href="#people" role="tab" aria-controls="people" aria-selected="true">People</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="files-tab" data-bs-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="false">Files</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="emails-tab" data-bs-toggle="tab" href="#emails" role="tab" aria-controls="emails" aria-selected="false">Emails</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="subdomains-tab" data-bs-toggle="tab" href="#subdomains" role="tab" aria-controls="subdomains" aria-selected="false">Subdomains</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="urls-tab" data-bs-toggle="tab" href="#urls" role="tab" aria-controls="urls" aria-selected="false">URLs</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="dorks-tab" data-bs-toggle="tab" href="#dorks" role="tab" aria-controls="dorks" aria-selected="false">Dorks</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="results-tab" data-bs-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="credentials-tab" data-bs-toggle="tab" href="#credentials" role="tab" aria-controls="credentials" aria-selected="false">Credentials</a>
+    </li>
+</ul>
+
+<!-- Tab content -->
+<div class="tab-content" id="dataTabsContent">
+    <!-- People tab -->
+    <div class="tab-pane fade show active" id="people" role="tabpanel" aria-labelledby="people-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Usernames</th>
+                    <th>Emails</th>
+                    <th>Phones</th>
+                    <th>Profiles</th>
+                    <th>Source</th>
+               
+                </tr>
+            </thead>
+            <tbody id="people-data">
+                <!-- Use placeholders for now -->
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Files tab -->
+    <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Urls</th>
+                    <th>Filename</th>
+                    <th>Metadata</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody id="files-data">
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Emails tab -->
+    <div class="tab-pane fade" id="emails" role="tabpanel" aria-labelledby="emails-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Social networks</th>
+                    <th>Spoofable</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody id="emails-data">
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Subdomains tab -->
+    <div class="tab-pane fade" id="subdomains" role="tabpanel" aria-labelledby="subdomains-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Subdomain</th>
+                    <th>Takeover</th>
+                    <th>Service</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody id="subdomains-data">
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- URLs tab -->
+    <div class="tab-pane fade" id="urls" role="tabpanel" aria-labelledby="urls-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody id="urls-data">
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Dorks tab -->
+    <div class="tab-pane fade" id="dorks" role="tabpanel" aria-labelledby="dorks-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Dork</th>
+                    <th>Category</th>
+                    <th>Total Results</th>
+                    <th>Results Gathered</th>
+                    <th>Last Executed</th>
+                </tr>
+            </thead>
+            <tbody id="dorks-data">
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Results tab -->
+    <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>Dork</th>
+                    <th>Description</th>
+                    <th>All Info</th>
+                    <th>Last Detected</th>
+                </tr>
+            </thead>
+            <tbody id="results-data">
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Credentials tab -->
+    <div class="tab-pane fade" id="credentials" role="tabpanel" aria-labelledby="credentials-tab">
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>People ID</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody id="credentials-data">
+                <tr>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                    <td>[Placeholder]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

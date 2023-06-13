@@ -1,0 +1,51 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+      - celery_worker
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=infohound_db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: sh -c "python manage.py makemigrations infohound && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=infohound_db
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: sh -c "celery -A infohound_project worker --loglevel=info"
+  redis:
+    image: redis:latest
+    ports:
+      - '6378:6379'
+  db:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=infohound_db
+volumes:
+  postgres_data:

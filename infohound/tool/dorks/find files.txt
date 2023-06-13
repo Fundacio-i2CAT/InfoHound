@@ -1,0 +1,7 @@
+inurl:"/.git" "<domain>" -github
+site:<domain> ext:bkf | ext:bkp | ext:bak | ext:old | ext:backup
+site:<domain> ext:doc | ext:docx | ext:odt | ext:pdf | ext:rtf | ext:sxw | ext:psw | ext:ppt | ext:pptx | ext:pps | ext:csv
+inurl:<domain> not for distribution | confidential | "employee only" | proprietary | top secret | classified | trade secret | internal | private filetype:xls OR filetype:csv OR filetype:doc OR filetype:pdf
+site:<domain> ext:xml | ext:conf | ext:cnf | ext:reg | ext:inf | ext:rdp | ext:cfg | ext:txt | ext:ora | ext:env | ext:ini
+site:<domain> ext:sql | ext:dbf | ext:mdb
+site:<domain> ext:action | ext:struts | ext:do

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'infohound/css/styles.css' %}">
+    <title>{% block title %}InfoHound{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'infohound/imgs/basset-hound.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+          InfoHound
+        </a>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+          <div id="nav-group" class="navbar-nav">
+            <a id="nav-general" class="nav-link me-2 active" aria-current="page" style="cursor: pointer;"><i class="bi bi-house-door-fill me-1"></i>General</a>
+            <a id="nav-people" class="nav-link me-2" style="cursor: pointer;"><i class="bi bi-people-fill me-1"></i>People</a>
+            <a id="nav-emails" class="nav-link me-2" style="cursor: pointer;"><i class="bi bi-envelope-fill me-1"></i>Emails</a>
+            <a id="nav-dorks" class="nav-link me-2" style="cursor: pointer;"><i class="bi bi-link-45deg me-1"></i></i>Dorks</a>
+            <a id="nav-tasks" class="nav-link me-2" style="cursor: pointer;"><i class="bi bi-hourglass-split me-1"></i>Tasks</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="d-flex my-background ">
+      <div class=" p-3 bg-light" style="width: 280px; min-height: 100vh; opacity: 80%;">
+        <ul class="nav nav-pills flex-column" id="v-pills-tab">
+          <li class="nav-item mb-3">
+            <div class="d-grid">
+              <button id="addDomain" class="btn btn-block btn-dark" type="button"><i class="bi bi-plus-lg"></i>Add domain</button>
+            </div>
+          </li>
+          <div id="domain-list">
+          </div>
+        </ul>
+      </div>
+
+      <div id="content" class="container-fluid">
+        {% include 'tabs_content/general.html' %}
+      </div>
+    </div>
+
+    <div class="position-fixed top-0 end-0 p-3 mt-5">
+      <!-- Toast -->
+      <div id="error-toast" class="toast align-items-center text-bg-primary bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div id="error-toast-body" class="toast-body">
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <!-- Toast -->
+      <div id="success-toast" class="toast align-items-center text-bg-primary bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div id="success-toast-body" class="toast-body">
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="removeDomainModal" tabindex="-1" aria-labelledby="removeDomainModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="removeDomainModalLabel">Delete domain</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            The selected domain will be deteled and all the data found about it will be erased. Are you sure you want to continue?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button id="deleteDomainButton" type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addDomainModal" tabindex="-1" aria-labelledby="addDomainModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addDomainModalLabel">Add domain</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Please, especify the domain you want to analyze:
+            <input id="addDomainModalInput" type="text" class="form-control" placeholder="Domain name" aria-label="Domain name">
+            <div class="form-check form-switch mt-1">
+              <input id="fullPassiveSwitch" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+              <label class="form-check-label" for="flexSwitchCheckDefault">Full passive<span data-bs-toggle="tooltip" data-bs-placement="top" title="If selected, only files from Web Archive will be downloaded and analysed"><i class="bi bi-info-circle ms-1"></i></span></label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button id="addDomainButton" type="button" class="btn btn-success" data-bs-dismiss="modal">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="footer bg-dark text-center text-white py-1">
+      <p>Code by <a href="https://www.linkedin.com/in/xaviermarrugat/">Xavier Marrugat</a></p>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'infohound/js/index.js' %}"></script>
+</body>
+</html>
