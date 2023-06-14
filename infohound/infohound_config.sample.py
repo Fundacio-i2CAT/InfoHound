@@ -10,7 +10,7 @@ postgress_sql = {
 
 
 # 3rd Party Services
-SHODAN_KEY = ""
+SHODAN_KEY = "" #currently not used
 LEAK_LOOKUP_KEY = ""
 GOOGLE_API_KEY = ""
 GOOGLE_ID = ""
