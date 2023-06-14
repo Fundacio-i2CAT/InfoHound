@@ -6,29 +6,30 @@ from infohound.models import Domain, Dorks, Tasks
 from django.db import IntegrityError
 from django.utils import timezone
 
+
+
 def load_tasks(domain_id):
     tasks = [
-    {"name_id":"getWhoisInfoTask","name":"Get Whois Info", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"getDNSRecordsTask","name":"Get DNS Records", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"getSubdomainsTask","name":"Get Subdomains", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"getSubdomainsFromURLSTask","name":"Get Subdomains From URLs", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"getURLsTask","name":"Get URLs", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"getFilesFromURLsTask","name":"Get Files from URLs", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"findEmailsTask","name":"Find Email", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"findSocialProfilesByEmailTask","name":"Find social profiles", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"findEmailsFromURLsTask","name":"Find Emails From Urls", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"executeDorksTask","name":"Execute dorks", "description":"TO-DO", "type":"Retrieve"},
-    {"name_id":"findEmailsFromDorksTask","name":"Find Emails From Dorks", "description":"TO-DO", "type":"Retrieve"},
+    {"name_id":"getWhoisInfoTask","name":"Get Whois Info", "description":"Get revelant information from Whois register.", "type":"Retrieve"},
+    {"name_id":"getDNSRecordsTask","name":"Get DNS Records", "description":"This task queries the DNS.", "type":"Retrieve"},
+    {"name_id":"getSubdomainsTask","name":"Get Subdomains", "description":"This task uses Alienvault OTX API, CRT.sh and HackerTarget as data sources to discover cached subdomains.", "type":"Retrieve"},
+    {"name_id":"getSubdomainsFromURLSTask","name":"Get Subdomains From URLs", "description":"Once some tasks have been performed, the URLs table will have a lot of entries. This task will check all the URLS in order to find new subdomains.", "type":"Retrieve"},
+    {"name_id":"getURLsTask","name":"Get URLs", "description":"It searches all URLs cached by Wayback Machine and saves them into the database. This will later help to discover other data entities like files or subdomains.", "type":"Retrieve"},
+    {"name_id":"getFilesFromURLsTask","name":"Get Files from URLs", "description":"It loops through the URLs database table in order to find files and store them to the Files databas table to analyse them later. The files that will be retrieved are: doc, docx, ppt, pptx, pps, ppsx, xls, xlsx, odt, ods, odg, odp, sxw, sxc, sxi, pdf, wpd, svg, indd, rdp, ica, zip, rar", "type":"Retrieve"},
+    {"name_id":"findEmailsTask","name":"Find Email", "description":"It lookes for emails using queries to Google and Bing.", "type":"Retrieve"},
+    {"name_id":"findSocialProfilesByEmailTask","name":"Find people from emails", "description":"Once some emails have been found it can be useful to discover the person behind them. Also, it finds usernames from that people.", "type":"Retrieve"},
+    {"name_id":"findEmailsFromURLsTask","name":"Find Emails From Urls", "description":"Sometimes, the discoverd URLs can contain sentive information. This tasks retrive all the emails from URL paths.", "type":"Retrieve"},
+    {"name_id":"executeDorksTask","name":"Execute dorks", "description":"It will execute the dorks defined in the dorks folder. Remember to grup the dorks by categories (filename) so you can later understand the objatives of the dorks.", "type":"Retrieve"},
+    {"name_id":"findEmailsFromDorksTask","name":"Find Emails From Dorks", "description":"By default, InfoHound has some dorks defined in order to discover emails. This task will look for them in the results obtained by the execution of the dorks.", "type":"Retrieve"},
     # ANALYSIS
-    {"name_id":"subdomainTakeOverAnalysisTask","name":"Check Subdomains Take-Over", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"canBeSpoofedTask","name":"Check If Domain Can Be Spoofed", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"getProfilesTask","name":"Get Profiles From Usernames", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"downloadAllFilesTask","name":"Download All Files", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"getMetadataTask","name":"Get Metadata", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"getEmailsFromMetadataTask","name":"Get Emails From Metadata", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"getEmailsFromFilesContentTask","name":"Get Emails From Files Content", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"findRegisteredSitesHoleheTask","name":"Execute Holehe", "description":"TO-DO", "type":"Analysis"},
-    {"name_id":"findRegisteredSitesTask","name":"Find Registered Services", "description":"TO-DO", "type":"Analysis"},
+    {"name_id":"subdomainTakeOverAnalysisTask","name":"Check Subdomains Take-Over", "description":"It performes some checks to determine if a subdomain can be taken over.", "type":"Analysis"},
+    {"name_id":"canBeSpoofedTask","name":"Check If Domain Can Be Spoofed", "description":"It checks if a domain, from the emails InfoHound has discovered, can be spoofed. This could be used by attackers to impersonate a person and send emails as hime/her.", "type":"Analysis"},
+    {"name_id":"getProfilesTask","name":"Get Profiles From Usernames", "description":"This task uses the discoverd usernames from each person in order to find profiles from services or social networks where that username exist. This is performed using Maigret tool. It is worth to be noted that, although a profile with the same username is found, it does not necessary mean it is from the person being analised.", "type":"Analysis"},
+    {"name_id":"downloadAllFilesTask","name":"Download All Files", "description":"Once files have been stored in the Files database table, this task will download them in the download_files folder.", "type":"Analysis"},
+    {"name_id":"getMetadataTask","name":"Get Metadata", "description":"Using exiftool this task will extract all the metadata from the downloaded files and save it to the database.", "type":"Analysis"},
+    {"name_id":"getEmailsFromMetadataTask","name":"Get Emails From Metadata", "description":"As some metadata can contain emails, this will retrive all o them and save it to the database.", "type":"Analysis"},
+    {"name_id":"getEmailsFromFilesContentTask","name":"Get Emails From Files Content", "description":"Usually emails can be included in corporate files so this task will retrive all the emails from the downloaded files content.", "type":"Analysis"},
+    {"name_id":"findRegisteredSitesTask","name":"Find Registered Services using emails", "description":"It is possible to find services or social networks where an emaill has been used to create an account. This task will check if an email InfoHound has discovered has an account in: Twitter, Adobe, Facebook, Imgur, Mewe, Parler, Rumble, Snapchat, Wordpress and/or Duolingo", "type":"Analysis"},
     {"name_id":"checkBreachTask","name":"Check Breach", "description":"TO-DO", "type":"Analysis"}]
     for task in tasks:
         try:

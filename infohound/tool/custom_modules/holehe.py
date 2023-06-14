@@ -5,8 +5,8 @@ from holehe import core
 from infohound.models import Emails
 
 MODULE_ID = "findRegisteredSitesHoleheCustomTask"
-MODULE_NAME = "holehe"
-MODULE_DESCRIPTION = "Find registered services using Holehe tool" 
+MODULE_NAME = "Find sites with Holehe"
+MODULE_DESCRIPTION = "Using Holehe tool, this task will find where an email has been used to create an account. Holehe checks more than 120 sites." 
 MODULE_TYPE = "Analysis"
 
 def custom_task(domain_id):

@@ -54,5 +54,3 @@ def findRegisteredSites(domain_id):
 		entry.registered_services = services
 		print(services)
 		entry.save()
-
-

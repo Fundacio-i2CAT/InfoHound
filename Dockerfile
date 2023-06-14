@@ -5,6 +5,9 @@ FROM python:3.9
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
+# Install exiftool and maigret
+RUN apt-get update && apt-get install -y exiftool
+
 # Set the working directory in the container
 WORKDIR /code
 
