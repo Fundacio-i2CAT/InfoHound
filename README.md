@@ -91,7 +91,7 @@ async def findRegisteredSitesHolehe(domain_id):
 		entry.save()
 ```
 
-## Screenshots
+## :camera: Screenshots
 <img src="https://github.com/xampla/InfoHound/blob/main/email_tab.png" alt="Emails tab" width="50%">
 
 ## :bulb: Inspired by
