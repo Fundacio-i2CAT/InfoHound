@@ -29,6 +29,7 @@ class Emails(models.Model):
 class Subdomains(models.Model):
     subdomain = models.CharField(max_length=255, primary_key=True)
     takeover = models.BooleanField(null=True, default=None)
+    is_active = models.BooleanField(null=True, default=None)
     service = models.CharField(max_length=255)
     source = models.CharField(max_length=255)
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
