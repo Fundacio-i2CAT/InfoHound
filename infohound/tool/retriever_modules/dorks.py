@@ -17,7 +17,12 @@ def executeDorks(domain_id):
 		dork = entry.dork
 		(results, total, gathered, limit) = google_data.getUrls(dork)
 		for res in results:
-			url, created = URLs.objects.get_or_create(url=res[0], source="Dorks", domain_id=domain_id)
+			
+			url, created = URLs.objects.get_or_create(url=res[0], domain_id=domain_id)
+
+			if created:
+				url.source = "Dorks"
+				url.save()
 
 			try:
 				Results.objects.get_or_create(url=url,dork=entry,description=res[1],all_info=res[2],last_detected=timezone.now(), domain_id=domain_id)

@@ -2,6 +2,7 @@ import whois
 import socket
 import dns.resolver
 import infohound.infohound_config as config
+from ipwhois import IPWhois
 from infohound.models import Domain
 from infohound.tool.data_sources import alienvault
 
