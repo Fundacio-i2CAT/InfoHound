@@ -4,7 +4,7 @@ During the reconnaissance phase, an attacker searches for any information about 
 ## :house: Infohound architecture
 ![InfoHound](https://github.com/xampla/InfoHound/blob/main/infohound_diagram.jpg)
 
-## :hammer: Installation
+## 🛠️ Installation
 ```
 git clone https://github.com/xampla/InfoHound.git
 cd InfoHound
