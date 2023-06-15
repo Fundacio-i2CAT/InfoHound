@@ -31,6 +31,9 @@ def add_domain(request):
 def get_general_view(request):
     return render(request, 'tabs_content/general.html')
 
+def get_subdomains_view(request):
+    return render(request, 'tabs_content/subdomains.html')
+
 def get_people_view(request):
     return render(request, 'tabs_content/people.html')
 
@@ -92,6 +95,14 @@ def people_all(request):
 
     return JsonResponse(data, safe=False)
 
+def get_subdomains(request):
+    data = []
+    domain_id = request.GET['domain_id']
+    subdomains = Subdomains.objects.filter(domain_id=domain_id)
+    for entry in subdomains.iterator():
+        data.append({"subdomain":entry.subdomain,"is_active":entry.is_active,"takeover":entry.takeover, "source":entry.source})
+    return JsonResponse(data, safe=False)
+
 def get_person_details(request, person_id):
     data = {}
     domain_id = request.GET['domain_id']
@@ -117,7 +128,7 @@ def emails_view(request, domain_id):
         person = "Unknown" if entry.people is None else entry.people.name
         services = "Unknown" if len(entry.registered_services) == 0 else entry.registered_services
         leak = "Unknown" if entry.is_leaked is None else entry.is_leaked
-        spoofable = "Unknown" if entry.spoofable is None else entry.is_leaked
+        spoofable = "Unknown" if entry.spoofable is None else entry.spoofable
         item = {
         "email":entry.email,
         "person":person,

@@ -13,6 +13,7 @@ urlpatterns = [
     path('people_count/<int:domain_id>/', views.people_count, name='people_count'),
     path('files_count/<int:domain_id>/', views.files_count, name='files_count'),
     path('subdomains_count/<int:domain_id>/', views.subdomains_count, name='subdomains_count'),
+    path('get_subdomains/', views.get_subdomains, name='get_subdomains'),
     path('emails_count/<int:domain_id>/', views.emails_count, name='emails_count'),
     path('urls_count/<int:domain_id>/', views.urls_count, name='urls_count'),
     path('emails_stats/<int:domain_id>/', views.get_emails_stats, name='emails_stats'),
@@ -26,6 +27,7 @@ urlpatterns = [
 
     # HTML TABS
     path('general/', views.get_general_view, name='general'),
+    path('subdomains/', views.get_subdomains_view, name='subdomains'),
     path('people/', views.get_people_view, name='people'),
     path('emails/', views.get_emails_view, name='emails'),
     path('tasks/', views.get_tasks_view, name='tasks'),
