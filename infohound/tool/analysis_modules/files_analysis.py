@@ -127,7 +127,6 @@ def getEmailsFromMetadata(domain_id):
 
 
 def getEmailsFromFilesContent(domain_id):
-	data = []
 	excluded = ["rar","zip"]
 	queryset = Files.objects.filter(domain_id=domain_id)
 	for entry in queryset.iterator():
@@ -149,11 +148,11 @@ def getEmailsFromFilesContent(domain_id):
 					domain = Domain.objects.get(id=domain_id).domain
 					if domain in em:
 						print("Found another email: " + em)
-						data.append(Emails(email=em,source="Files",domain_id=domain_id))
-	try:
-		Emails.objects.bulk_create(data)
-	except IntegrityError as e:
-		pass
+						try:
+							Emails.objects.get_or_create(email=em,source="Files",domain_id=domain_id)
+						except IntegrityError as e:
+							pass
+	
 
 
 

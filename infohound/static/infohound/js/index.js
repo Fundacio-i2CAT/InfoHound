@@ -434,9 +434,9 @@ function loadDorks() {
     if (data.length != 0) {
       tableHead.html(`
         <tr>
-          <th scope="col" style="background-color: #ffa600;">Dork</th>
-          <th scope="col" style="background-color: #ffa600;">Category</th>
-          <th scope="col" style="background-color: #ffa600;">Link</th>
+          <th class="w-50" scope="col" style="background-color: #ffa600;">Dork</th>
+          <th class="w-25" scope="col" style="background-color: #ffa600;">Category</th>
+          <th class="w-25" scope="col" style="background-color: #ffa600;">Link</th>
         </tr>
       `)
     }
@@ -471,6 +471,65 @@ function loadDorks() {
   });
 }
 
+function loadSubdomains() {
+  const domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
+  const url = "/infohound/get_subdomains?domain_id=" + domain_id;
+  $.getJSON(url, function (data) {
+
+    var tableHead = $("#subdomains-table-head");
+    
+    if (data.length != 0) {
+      tableHead.html(`
+        <tr>
+          <th scope="col" style="background-color: #ffa600;">Subdomain</th>
+          <th scope="col" style="background-color: #ffa600;">Active</th>
+          <th scope="col" style="background-color: #ffa600;">Takeover</th>
+          <th scope="col" style="background-color: #ffa600;">Source</th>
+        </tr>
+      `)
+    }
+  
+    var tableBody = $('#subdomains-table-body');
+    tableBody.empty();
+
+    $.each(data, function(index, item) {
+      var row = $("<tr>");
+
+      $.each(item, function (key, value) {
+        if(key == "takeover" || key == "is_active") {
+          info = ""
+          if(value == null) {
+            info = "Unknown"
+          }
+          else if(value) {
+            info = '<i class="bi bi-check2"></i>'
+          }
+          else {
+            info = '<i class="bi bi-x-lg"></i>'
+          }
+          $("<td>").html(info).appendTo(row);
+        }
+        else {
+          $("<td>").html(value).appendTo(row);
+        }
+      });
+
+      row.appendTo(tableBody);
+      $('#exportSubdomainsTable').show()
+    });
+
+    if(tableBody.find("tr").length <= 1) {
+      const subdomains_container = $('#subdomains-container');
+      subdomains_container.empty();
+      subdomains_container.html(`
+        <div class="d-flex align-items-center justify-content-center vh-100">
+          <p style="color: white">There is not data yet!</p>
+        </div>
+      `)
+    }
+  });
+}
+
 function loadData(nav_id, domain_id) {
   $('#nav-group .nav-link.active').removeClass('active');
   if(nav_id == "nav-general") {
@@ -485,6 +544,14 @@ function loadData(nav_id, domain_id) {
       loadStatCount("urls_count","#urls-count-stats",domain_id)
       loadDomainInfo(domain_id)
       getEmailsStats(domain_id)
+    }});
+  }
+  else if(nav_id == "nav-subdomains") {
+    $('#nav-subdomains').addClass('active');
+    $.ajax({url: "/infohound/subdomains/", type: "GET", dataType: "html", success: function (data) {
+      const content = document.getElementById("content");
+      content.innerHTML = data;
+      loadSubdomains()
     }});
   }
   else if(nav_id == "nav-people") {
@@ -546,6 +613,30 @@ function loadFirstData(domain_id) {
   loadStatCount("urls_count","#urls-count-stats",domain_id)
   getEmailsStats(domain_id)
   loadDomainInfo(domain_id)
+}
+
+function exportToCSV(id, filename) {
+  const table = document.getElementById(id);
+  const rows = table.querySelectorAll('tr');
+  
+  let csvContent = 'data:text/csv;charset=utf-8,';
+  rows.forEach((row) => {
+    const cells = row.querySelectorAll('td, th');
+    const rowData = Array.from(cells)
+      .map((cell) => cell.innerText)
+      .join(',');
+    
+    csvContent += rowData + '\r\n';
+  });
+  
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  
+  link.click();
+  document.body.removeChild(link);
 }
 
 
@@ -653,29 +744,9 @@ $('#addDomainButton').on('click', function() {
 
 
 $(document).on('click','#exportEmailsTable', function() {
-  
-  const filename = 'emails_data.csv';
+  exportToCSV("email-table-all", "emails_export.csv")
+});
 
-  const table = document.getElementById("email-table-all");
-  const rows = table.querySelectorAll('tr');
-  
-  let csvContent = 'data:text/csv;charset=utf-8,';
-  
-  rows.forEach((row) => {
-    const cells = row.querySelectorAll('td, th');
-    const rowData = Array.from(cells)
-      .map((cell) => cell.innerText)
-      .join(',');
-    
-    csvContent += rowData + '\r\n';
-  });
-  
-  const encodedUri = encodeURI(csvContent);
-  const link = document.createElement('a');
-  link.setAttribute('href', encodedUri);
-  link.setAttribute('download', filename);
-  document.body.appendChild(link);
-  
-  link.click();
-  document.body.removeChild(link);
+$(document).on('click','#exportSubdomainsTable', function() {
+  exportToCSV("subdomains-table-all", "subdomains_export.csv")
 });

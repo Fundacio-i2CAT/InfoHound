@@ -26,7 +26,8 @@ def canBeSpoofed(domain_id):
 	queryset = Emails.objects.filter(spoofable__isnull=True,domain_id=domain_id)
 	for entry in queryset:
 		domain = entry.email.split("@")[1]
-		if "NOT" not in getDMARCPolicy(domain):
+		res = getDMARCPolicy(domain)
+		if res and "NOT" not in res:
 			entry.spoofable = True
 			entry.save()
 
@@ -53,7 +54,9 @@ def subdomainTakeOverAnalysis(domain_id):
 
 		if result:
 			entry.takeover = True
-			entry.save()
+		else:
+			entry.takeover = False
+		entry.save()
 
 def canBeTakenOver(domain, cnames, fingerprint):
 	takeover = False
