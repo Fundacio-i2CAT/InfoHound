@@ -8,3 +8,4 @@ site:justpaste.it | site:heypasteit.com | site:pastebin.com "<domain>"
 site:linkedin.com employees <domain>
 intext:"<domain>" site:linkedin.com/in
 intext:"<domain>" site:facebook.com
+inurl:presentation site:docs.google.com <domain>

@@ -44,7 +44,7 @@ class URLs(models.Model):
         unique_together = (('url', 'domain'),)
 
 class Files(models.Model):
-    url = models.ForeignKey(URLs, on_delete=models.CASCADE)
+    url = models.ForeignKey(URLs, on_delete=models.SET_NULL, null=True)
     url_download = models.TextField()
     filename = models.CharField(max_length=255)
     metadata = models.JSONField(null=True)
@@ -62,8 +62,8 @@ class Dorks(models.Model):
         unique_together = (('dork', 'domain'),)
 
 class Results(models.Model):
-    url = models.ForeignKey(URLs, on_delete=models.PROTECT)
-    dork = models.ForeignKey(Dorks, on_delete=models.PROTECT)
+    url = models.ForeignKey(URLs, on_delete=models.CASCADE)
+    dork = models.ForeignKey(Dorks, on_delete=models.CASCADE)
     description = models.TextField()
     all_info = models.JSONField()
     last_detected = models.DateField()
