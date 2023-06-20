@@ -267,6 +267,7 @@ def delete_domain(request, domain_id):
         data = {'msg': "Domain correctly removed."}
         
     except Exception as e:
+        print(e)
         data = {'error': "Something went wrong."}
     return JsonResponse(data, status=200)
 
