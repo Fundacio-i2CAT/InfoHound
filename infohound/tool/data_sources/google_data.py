@@ -135,4 +135,48 @@ def discoverSocialMedia(domain,email):
 	except Exception as ex:
 		raise ex #It's left over... but it stays there
 	return data
+
+def discoverSocialMediaByDorks(domain,email):
+	data = {}
+	links = []
+	name = ""
+	limit = False
+	
+	num = 50
+	username = email.split("@")[0]
+	scope = email.split("@")[1]
+
+	payload = {"key":API_KEY,"cx":ID,"start":1,"q":f"'{username}' {scope}"}
+	res = requests.get("https://www.googleapis.com/customsearch/v1",params=payload)
+	info = json.loads(res.content)
+	if "error" in info:
+		print(info["error"]["status"])
+		limit = True
+	else:
+		if "items" in info:
+			for item in info["items"]:
+				if "linkedin" in item["link"]:
+					l = item["link"]
+					if "?" in item["link"]:
+						l = l.split("?")[0]
+					links.append(l)
+					name = item["title"]
+					if "," in name:
+						name = name.split(",")[0]
+					if "-" in name:
+						name = name.split("-")[0]
+					name = name.strip()
+				if "twitter" in item["link"]:
+					l = item["link"]
+					if "?" in item["link"]:
+						l = l.split("?")[0]
+					links.append(l)
+					if name == "":
+						name = item["title"].split("(")[0].strip()
+		data["links"] = links
+		data["name"] = name
+	print(data)
+	return data
+	
+
 	
