@@ -1,9 +1,11 @@
 import requests
+import infohound.infohound_config as config
 
-API_KEY = "b27cf59f91a1f3d877c9ed27ea755538"
+API_KEY = config.LEAK_LOOKUP_KEY
 
 def isLeaked(email):
-	url = "https://leak-lookup.com/api/search"
+	url = "https://monitor.firefox.com"
+	client = requests.Session()
 	data = {"key":API_KEY, "type":"email_address", "query":email}
 	res = requests.post(url,data=data)
 	msg = res.json()["message"]

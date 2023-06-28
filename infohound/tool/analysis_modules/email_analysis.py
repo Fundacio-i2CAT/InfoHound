@@ -6,18 +6,31 @@ from holehe import core
 from django.db import IntegrityError
 from infohound.models import Emails
 from infohound.tool.data_sources.services import adobe,duolingo,imgur,mewe,parler,rumble,snapchat,twitter,wordpress
-from infohound.tool.data_sources.leaks import leak_lookup
+from infohound.tool.data_sources.leaks import leak_lookup, firefox_monitor
 
 def checkBreach(domain_id):
 	queryset = Emails.objects.filter(is_leaked__isnull=True,domain_id=domain_id)
 	for entry in queryset.iterator():
-		email = entry.email
-		try:
-			entry.is_leaked = leak_lookup.isLeaked(email)
-			entry.save()
-		except Exception as e:
-			print(e)
-			break
+		retry = 1
+		while(retry != 0):
+			email = entry.email
+			try:
+				if config.LEAK_LOOKUP_KEY:
+					entry.is_leaked = leak_lookup.isLeaked(email)
+				else:
+					entry.is_leaked = firefox_monitor.isLeaked(email)
+				retry = 0
+				entry.save()
+			except Exception as e:
+				if e == "CSRF":
+					print("CSRF")
+					retry += 1
+					if retry > 4:
+						retry = 0
+				else:
+					print(e)
+					break
+				
 
 def findRegisteredSites(domain_id):
 	data = []
