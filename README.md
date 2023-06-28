@@ -40,7 +40,7 @@ InfoHound has 2 different types of modules, those which retreives data and those
 | Get Emails From Metadata | As some metadata can contain emails, this task will retrieve all of them and save them to the database. |
 | Get Emails From Files Content | Usually, emails can be included in corporate files, so this task will retrieve all the emails from the downloaded files' content. |
 | Find Registered Services using Emails | It is possible to find services or social networks where an email has been used to create an account. This task will check if an email InfoHound has discovered has an account in Twitter, Adobe, Facebook, Imgur, Mewe, Parler, Rumble, Snapchat, Wordpress, and/or Duolingo. |
-| Check Breach | TO-DO |
+| Check Breach | This task checks Firefox Monitor service to see if an email has been found in a data breach. Although it is a free service, it has a limitation of 10 queries per day. If Leak-Lookup API key is set, it also checks it. |
 
 ## :pill: Custom modules
 InfoHound lets you create custom modules, you just need to add your script inside `infohoudn/tool/custom_modules`. One custome module has been added as an example which uses [Holehe](https://github.com/megadose/holehe) tool to check if the emails previously are attached to an account on sites like Twitter, Instagram, Imgur and more than 120 others. 
