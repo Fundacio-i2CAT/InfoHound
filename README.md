@@ -7,8 +7,9 @@ During the reconnaissance phase, an attacker searches for any information about 
 ## 🛠️ Installation
 ```
 git clone https://github.com/xampla/InfoHound.git
-cd InfoHound
+cd InfoHound/infohound
 mv infohound_config.sample.py infohound_config.py
+cd ..
 docker-compose up -d
 ```
 You must add API Keys inside infohound_config.py file
