@@ -12,7 +12,11 @@ mv infohound_config.sample.py infohound_config.py
 cd ..
 docker-compose up -d
 ```
-You must add API Keys inside infohound_config.py file
+You can now access infohound navigating with your browser to:
+```
+http://localhost:8000/infohound/
+```
+**NOTE:** You must add API Keys inside infohound_config.py file
 ## Default modules
 InfoHound has 2 different types of modules, those which retreives data and those which analyse it to extract more relevant information.
 ### :mag: Retrievval modules
