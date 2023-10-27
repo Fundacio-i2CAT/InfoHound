@@ -43,29 +43,68 @@ def findRegisteredSites(domain_id):
 		if services is None:
 			services = []
 
-		if "twitter" not in services and twitter.twitter_email(email):
-			services.append("twitter")
-		if "adobe" not in services and adobe.adobe_email(email):
-			services.append("adobe")
-		if "facebook" not in services and adobe.adobe_facebook_email(email):
-			services.append("facebook")
-		if "imgur" not in services and imgur.imgur_email(email):
-			services.append("imgur")
-		if "mewe" not in services and mewe.mewe_email(email):
-			services.append("mewe")
-		if "parler" not in services and parler.parler_email(email):
-			services.append("parler")
-		if "rumble" not in services and rumble.rumble_email(email):
-			services.append("rumble")
-		if "snapchat" not in services and snapchat.snapchat_email(email):
-			services.append("snapchat")
-		if "wordpress" not in services and wordpress.wordpress_email(email):
-			services.append("wordpress")
-		if "duolingo" not in services and duolingo.duolingo_email(email):
-			services.append("duolingo")
-
+		if "twitter" not in services:
+			try:
+				if twitter.twitter_email(email):
+					services.append("twitter")
+			except Exception as e:
+				pass
+		if "adobe" not in services:
+			try:
+				if adobe.adobe_email(email):
+					services.append("adobe")
+			except Exception as e:
+				pass
+		if "facebook" not in services:
+			try:
+				if adobe.adobe_facebook_email(email):
+					services.append("facebook")
+			except Exception as e:
+				pass
+		if "imgur" not in services:
+			try:
+				if imgur.imgur_email(email):
+					services.append("imgur")
+			except Exception as e:
+				pass
+		if "mewe" not in services:
+			try:
+				if mewe.mewe_email(email):
+					services.append("mewe")
+			except Exception as e:
+				pass
+		if "parler" not in services:
+			try:
+				if parler.parler_email(email):
+					services.append("parler")
+			except Exception as e:
+				pass
+		if "rumble" not in services:
+			try:
+				if rumble.rumble_email(email):
+					services.append("rumble")
+			except Exception as e:
+				pass
+		if "snapchat" not in services:
+			try:
+				if snapchat.snapchat_email(email):
+					services.append("snapchat")
+			except Exception as e:
+				pass
+		if "wordpress" not in services:
+			try:
+				if wordpress.wordpress_email(email):
+					services.append("wordpress")
+			except Exception as e:
+				pass
+		if "duolingo" not in services:
+			try:
+				if duolingo.duolingo_email(email):
+					services.append("duolingo")
+			except Exception as e:
+				pass
 		entry.registered_services = services
-		print(services)
+		
 		entry.save()
 
 

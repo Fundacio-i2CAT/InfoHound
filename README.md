@@ -15,7 +15,7 @@ docker-compose up -d
 You must add API Keys inside infohound_config.py file
 ## Default modules
 InfoHound has 2 different types of modules, those which retreives data and those which analyse it to extract more relevant information.
-### :mag: Retrievval modules
+### :mag: Retrieval modules
 | Name | Description |
 | ---- | ----------- |
 | Get Whois Info | Get relevant information from Whois register. |
