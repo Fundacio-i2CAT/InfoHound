@@ -17,7 +17,7 @@ file_types = ["doc","docx","ppt","pptx","pps","ppsx","xls","xlsx",
 #concurrency_limit = trio.CapacityLimiter(5)
 
 
-async def process_url(url, source, files, domain_id):
+async def process_url(url, source, domain_id):
 	path = urlparse(url).path
 	ext = path.split(".")[-1:][0]
 	fname = path.split("/")[-1:][0]
@@ -40,15 +40,16 @@ async def process_url(url, source, files, domain_id):
 			url_file = url
 		if url_file != "":
 			u = URLs.objects.get(url=url)
-			file = Files(url=u, url_download=url_file, filename=fname, source=source, domain_id=domain_id)
-			files.append(file)
+			try:
+				Files.objects.get_or_create(url=u, url_download=url_file, filename=fname, source=source, domain_id=domain_id)
+			except IntegrityError as e:
+				pass
 			print(url_file)
 
 async def get_files_from_urls(domain_id):
 	domain = Domain.objects.get(id=domain_id)
 	domain_name = domain.domain
 	full_passive = domain.full_passive
-	files = []
 	present_urls = [entry.url_id for entry in Files.objects.filter(domain_id=domain_id)]
 	urls = {entry.url: entry.source for entry in URLs.objects.filter(domain_id=domain_id).exclude(url__in=present_urls)}
 	print("Starting gathering download URLS")
@@ -57,7 +58,5 @@ async def get_files_from_urls(domain_id):
 			if domain_name in urlparse(url).netloc and full_passive:
 				pass
 			source = urls[url]
-			nursery.start_soon(process_url, url, source, files, domain_id)
-			
-	await trio.to_thread.run_sync(Files.objects.bulk_create, files)
+			nursery.start_soon(process_url, url, source, domain_id)
 

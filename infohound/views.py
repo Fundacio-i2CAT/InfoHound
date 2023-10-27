@@ -1,6 +1,8 @@
 import os
 import trio
+import base64
 import importlib
+import networkx as nx
 from datetime import datetime
 from celery.result import AsyncResult
 from django.shortcuts import render
@@ -270,6 +272,91 @@ def delete_domain(request, domain_id):
         print(e)
         data = {'error': "Something went wrong."}
     return JsonResponse(data, status=200)
+
+
+def export_to_graphml(request, domain_id):
+    G = nx.Graph()
+    domain = Domain.objects.get(id=domain_id)
+    G.add_node(domain.domain,label=domain.domain,type="Domain", whois_data=str(domain.whois_data), dns_records=str(domain.dns_records))
+    
+
+    """
+    G.add_node("Subdomains", label="Subdomains")
+    G.add_edge(domain.domain,"Subdomains")
+    subdomains = Subdomains.objects.filter(domain_id=domain).all()
+    for subdomain in subdomains.iterator():
+        G.add_node(subdomain.subdomain,label=subdomain.subdomain,type="Subdomain")
+        G.add_edge(subdomain.subdomain,"Subdomains")
+    
+    
+    G.add_node("URLs", label="URLs")
+    G.add_edge(domain.domain,"URLs")
+    urls = URLs.objects.filter(domain_id=domain).all()
+    for url in urls.iterator():
+        G.add_node(url.url,label=url.url,type="URL")
+        G.add_edge(url.url,"URLs")
+    """
+    
+    G.add_node("Files", label="Files")
+    G.add_edge(domain.domain,"Files")
+    files = Files.objects.filter(domain_id=domain).all()
+    for file in files.iterator():
+        G.add_node(file.url.url,label=file.url.url,type="URL")
+        G.add_edge(file.url.url,"Files")
+
+    G.add_node("People", label="People")
+    G.add_edge(domain.domain,"People")
+    people = People.objects.filter(domain_id=domain).all()
+    i = 0
+    for person in people.iterator():
+        G.add_node(person.name,label=person.name,type="Person",profiles=str(person.social_profiles))
+        G.add_edge(person.name,"People")
+
+        if person.phones:
+            G.add_node("Phones#"+str(i), label="Phones")
+            G.add_edge("Phones#"+str(i),person.name)
+            for phone in person.phones:
+                G.add_node(phone, label=phone)
+                G.add_edge(phone, "Phones#"+str(i))
+
+        if person.social_profiles:
+            G.add_node("Social Profiles#"+str(i), label="Social Profiles")
+            G.add_edge("Social Profiles#"+str(i),person.name)
+            for profile in person.social_profiles:
+                G.add_node(profile, label=profile)
+                G.add_edge(profile, "Social Profiles#"+str(i))
+
+        emails = Emails.objects.filter(people_id=person).all()
+        for email in emails.iterator():
+            G.add_node(email.email,label=email.email,type="Email",services=str(email.registered_services))
+            G.add_edge(email.email,person.name)
+
+            if email.registered_services:
+                G.add_node("Registered Services#"+str(i), label="Registered Services")
+                G.add_edge("Registered Services#"+str(i),person.name)
+                for service in email.registered_services:
+                    G.add_node(service, label=service)
+                    G.add_edge(service, "Registered Services#"+str(i))
+
+        usernames = Usernames.objects.filter(people_id=person).all()
+        for username in usernames.iterator():
+            G.add_node(username.username,label=username.username,type="Username")
+            G.add_edge(username.username,person.name)
+        i+=1
+
+    
+
+    # Export the graph to GraphML after the loops are completed
+    graphml_file = domain.domain+"_map.graphml"
+    nx.write_graphml(G, graphml_file)
+
+    with open(graphml_file, 'rb') as file:
+        file_content = base64.b64encode(file.read()).decode('utf-8')
+
+
+    data = {'msg': file_content}
+    return JsonResponse(data, status=200)
+
 
 
 

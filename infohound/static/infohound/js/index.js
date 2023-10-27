@@ -399,15 +399,20 @@ function loadDomains() {
       var isActive = index === 0 ? 'active' : '';
 
       var navItem = '<li class="nav-item">';
-      navItem += '<a id="v-pills-general-tab" class="nav-link ' + isActive + '" data-domain-id="'+item["id"]+'" data-bs-toggle="pill" href="#v-pills-general">';
+      navItem += '<a id="v-pills-general-tab" class="nav-link ' + isActive + '" data-domain-id="'+item["id"]+'"data-domain="'+domain+'"data-bs-toggle="pill" href="#v-pills-general">';
       navItem += '<span class="d-flex align-items-center">';
-      navItem += '<span class="me-2">';
-      navItem += '<i class="bi bi-globe"></i>';
-      navItem += '</span>';
+      navItem += '<span class="me-2"><i class="bi bi-globe"></i></span>';
       navItem += '<span class="flex-grow-1">' + domain + '</span>';
-      navItem += '<span class="trash">';
-      navItem += '<i class="bi bi-trash"></i>';
-      navItem += '</span>';
+      navItem += '<span class="trash"><i class="bi bi-trash"></i></span>';
+      navItem += '<span class="dots">';
+      navItem += '<div class="dropdown ms-auto">'
+      navItem += '<i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>'
+      navItem += '<ul class="dropdown-menu">'
+      navItem += '<li>'
+      navItem += '<span class="dropdown-item graph_export"><i class="bi bi-download"></i> GraphML</span>'
+      navItem += '</li>'
+      navItem += '</ul>'
+      navItem += '</div>'
       navItem += '</span>';
       navItem += '</a>';
       navItem += '</li>';
@@ -418,6 +423,8 @@ function loadDomains() {
     $('#domain-list').html(navItems);
     $('#domain-list .nav-link .bi-trash').hide()
     $('#domain-list .nav-link.active .bi-trash').show()
+    $('#domain-list .nav-link .bi-three-dots-vertical').hide()
+    $('#domain-list .nav-link.active .bi-three-dots-vertical').show()
     var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
     
     loadData("nav-general", domain_id)
@@ -694,14 +701,46 @@ $('#nav-group a').on('click', function() {
 $('#domain-list').on('click', '.nav-link', function() {
   $('#domain-list .nav-link .bi-trash').hide()
   $('#domain-list .nav-link.active .bi-trash').show()
+  $('#domain-list .nav-link .bi-three-dots-vertical').hide()
+  $('#domain-list .nav-link.active .bi-three-dots-vertical').show()
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
   loadData("nav-general", domain_id)
 });
 
-$('#domain-list').on('click', '.nav-link .bi-trash', function() {
+$('#domain-list').on('click', '.nav-link .bi-trash', function(event) {
+  event.stopPropagation();
   var myModal = new bootstrap.Modal(document.getElementById('removeDomainModal'));
   myModal.show()
 });
+
+$('#domain-list').on('click', '.nav-link .bi-three-dots-vertical', function(event) {
+  event.stopPropagation();
+});
+
+$('#domain-list').on('click', '.nav-link .graph_export', function(event) {
+  event.stopPropagation();
+  console.log("hola")
+  var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
+  var domain = $('#domain-list .nav-item .nav-link.active').attr('data-domain');
+  url = "/infohound/export/"+domain_id
+  $.getJSON(url, function (data) {
+    if(data["error"]) {
+      showToast(false, data["error"])
+    }
+    else {      
+      const a = document.createElement('a');
+      const decodedContent = atob(data['msg']);
+      a.href = window.URL.createObjectURL(new Blob([decodedContent]));
+      a.download = domain+'_map.graphml'; // Specify the file name
+      a.style.display = 'none';
+
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  });
+});
+
 
 $('#deleteDomainButton').on('click', function() {
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
