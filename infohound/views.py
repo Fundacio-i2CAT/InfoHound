@@ -1,4 +1,5 @@
 import os
+import csv
 import trio
 import base64
 import importlib
@@ -301,8 +302,8 @@ def export_to_graphml(request, domain_id):
     G.add_edge(domain.domain,"Files")
     files = Files.objects.filter(domain_id=domain).all()
     for file in files.iterator():
-        G.add_node(file.url.url,label=file.url.url,type="URL")
-        G.add_edge(file.url.url,"Files")
+        G.add_node(file.filename,label=file.filename,type="File", file_url=file.url.url)
+        G.add_edge(file.filename,"Files")
 
     G.add_node("People", label="People")
     G.add_edge(domain.domain,"People")
@@ -353,11 +354,68 @@ def export_to_graphml(request, domain_id):
     with open(graphml_file, 'rb') as file:
         file_content = base64.b64encode(file.read()).decode('utf-8')
 
+    os.remove(graphml_file) 
 
     data = {'msg': file_content}
     return JsonResponse(data, status=200)
 
 
+def export_all_to_CSV(request, domain_id):
+    domain = Domain.objects.get(id=domain_id)
+    filename = domain.domain+"_map.csv"
+    fieldnames = ['domain','email','registered_services','file_name','file_url','person_name','phone','social_profiles_urls','usernames','profile']
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+
+        files = Files.objects.filter(domain_id=domain).all()
+        for file in files.iterator():
+            file_name = file.filename
+            file_url = file.url.url
+            writer.writerow({'domain': domain.domain, 'file_name': file_name,'file_url': file_url})
+
+
+        emails = Emails.objects.filter(domain_id=domain).all()
+        for email in emails.iterator():
+            email_addr = email.email
+
+            if email.registered_services:
+                for service in email.registered_services:
+                    writer.writerow({'domain': domain.domain, 'email': email_addr, 'registered_services': service})
+
+            if email.people:
+                person = People.objects.get(id=email.people.id)
+                
+                person_name = person.name
+
+                if person.phones:
+                    for phone in person.phones:
+                        writer.writerow({'domain': domain.domain, 'email': email_addr, 'person_name': person_name,'phone':phone})
+
+                if person.social_profiles:
+                    for profile in person.social_profiles:
+                        writer.writerow({'domain': domain.domain, 'email': email_addr, 'person_name': person_name,'social_profiles_urls':profile})
+
+                usernames = Usernames.objects.filter(people_id=person).all()
+                for username in usernames.iterator():
+                    user = username.username
+                    if username.profiles:
+                        for profile in profiles:
+                            writer.writerow({'domain': domain.domain, 'email': email_addr, 'person_name': person_name, 'usernames': user,'profile':profile})
+                    else:
+                        writer.writerow({'domain': domain.domain, 'email': email_addr, 'person_name': person_name, 'usernames': user})
+
+
+            else:
+                writer.writerow({'domain': domain.domain, 'email': email_addr})
+
+    with open(filename, 'rb') as csvfile:
+        file_content = base64.b64encode(csvfile.read()).decode('utf-8')
+
+    os.remove(filename)     
+
+    data = {'msg': file_content}
+    return JsonResponse(data, status=200)
 
 
     

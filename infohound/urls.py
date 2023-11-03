@@ -24,7 +24,8 @@ urlpatterns = [
     path('get_domains/', views.get_domains, name='get_domains'),
     path('get_dorks_results/', views.get_dorks_results, name='get_dorks_results'),
     path('delete/<int:domain_id>', views.delete_domain, name='delete_domain'),
-    path('export/<int:domain_id>', views.export_to_graphml, name='export_to_graphml'),
+    path('export_domain_graphml/<int:domain_id>', views.export_to_graphml, name='export_to_graphml'),
+    path('export_domain_csv/<int:domain_id>', views.export_all_to_CSV, name='export_all_to_CSV'),
 
     # HTML TABS
     path('general/', views.get_general_view, name='general'),
