@@ -409,7 +409,10 @@ function loadDomains() {
       navItem += '<i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>'
       navItem += '<ul class="dropdown-menu">'
       navItem += '<li>'
-      navItem += '<span class="dropdown-item graph_export"><i class="bi bi-download"></i> GraphML</span>'
+      navItem += '<span class="dropdown-item export_domain_graphml"><i class="bi bi-diagram-3"></i> GraphML</span>'
+      navItem += '</li>'
+      navItem += '<li>'
+      navItem += '<span class="dropdown-item export_domain_csv"><i class="bi bi-filetype-csv"></i> Maltego</span>'
       navItem += '</li>'
       navItem += '</ul>'
       navItem += '</div>'
@@ -717,12 +720,12 @@ $('#domain-list').on('click', '.nav-link .bi-three-dots-vertical', function(even
   event.stopPropagation();
 });
 
-$('#domain-list').on('click', '.nav-link .graph_export', function(event) {
+$('#domain-list').on('click', '.nav-link .export_domain_graphml', function(event) {
   event.stopPropagation();
   console.log("hola")
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
   var domain = $('#domain-list .nav-item .nav-link.active').attr('data-domain');
-  url = "/infohound/export/"+domain_id
+  url = "/infohound/export_domain_graphml/"+domain_id
   $.getJSON(url, function (data) {
     if(data["error"]) {
       showToast(false, data["error"])
@@ -732,6 +735,30 @@ $('#domain-list').on('click', '.nav-link .graph_export', function(event) {
       const decodedContent = atob(data['msg']);
       a.href = window.URL.createObjectURL(new Blob([decodedContent]));
       a.download = domain+'_map.graphml'; // Specify the file name
+      a.style.display = 'none';
+
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  });
+});
+
+$('#domain-list').on('click', '.nav-link .export_domain_csv', function(event) {
+  event.stopPropagation();
+  console.log("hola")
+  var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
+  var domain = $('#domain-list .nav-item .nav-link.active').attr('data-domain');
+  url = "/infohound/export_domain_csv/"+domain_id
+  $.getJSON(url, function (data) {
+    if(data["error"]) {
+      showToast(false, data["error"])
+    }
+    else {      
+      const a = document.createElement('a');
+      const decodedContent = atob(data['msg']);
+      a.href = window.URL.createObjectURL(new Blob([decodedContent]));
+      a.download = domain+'_map.csv'; // Specify the file name
       a.style.display = 'none';
 
       document.body.appendChild(a);

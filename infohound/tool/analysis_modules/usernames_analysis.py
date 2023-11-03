@@ -1,15 +1,16 @@
 import subprocess
 import re
+import os
 from infohound.models import Usernames
 import infohound.infohound_config as config
 
-
+#TO-DO: maigret can also discover usernames related to the username searched. 
 def getProfiles(domain):
 	queryset = Usernames.objects.filter(domain_id=domain)
 	for entry in queryset.iterator():
-		result = subprocess.run(["maigret",entry.username], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-		output = result.stdout.decode('utf-8')
+		output = esult=os.popen("maigret "+entry.username).read()
 		lines = output.split('\n')
+		print(lines)
 		data = entry.profiles
 		for line in lines:
 			match = re.match(r'\[\+\] (\S.*): (.+)', line.strip())
@@ -25,3 +26,4 @@ def getProfiles(domain):
 		print(data)
 		print("---------------")
 		entry.save()
+		

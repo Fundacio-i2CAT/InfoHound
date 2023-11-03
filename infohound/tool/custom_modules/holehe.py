@@ -25,13 +25,14 @@ async def findRegisteredSitesHolehe(domain_id):
 
 		for website in websites:
 			await core.launch_module(website, email, client, out)
-			print(out)
 		await client.aclose()
 
 		services = []
 		for item in out:
 			if item["exists"]:
 				services.append(item["name"])
+				print(item["name"])
 
 		entry.registered_services = services
 		entry.save()
+		
