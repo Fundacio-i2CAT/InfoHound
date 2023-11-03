@@ -2,7 +2,7 @@
 During the reconnaissance phase, an attacker searches for any information about his target to create a profile that will later help him to identify possible ways to get in an organization. InfoHound performs passive analysis techniques (which do not interact directly with the target) using OSINT to extract a large amount of data given a web domain name. This tool will retrieve emails, people, files, subdomains, usernames and urls that will be later analyzed to extract even more valuable information. 
 
 ## :house: Infohound architecture
-![InfoHound](https://github.com/xampla/InfoHound/blob/main/infohound_diagram.jpg)
+<p align="center"><img src="https://github.com/xampla/InfoHound/blob/main/infohound_diagram.jpg" alt="Infohound diagram" ></p>
 
 ## 🛠️ Installation
 ```
@@ -97,7 +97,11 @@ async def findRegisteredSitesHolehe(domain_id):
 ```
 
 ## :camera: Screenshots
-<img src="https://github.com/xampla/InfoHound/blob/main/email_tab.png" alt="Emails tab" width="50%">
+<p align="center"><img src="https://github.com/xampla/InfoHound/blob/main/email_tab.png" alt="Emails tab" width="60%"></p>
+
+## :eight_spoked_asterisk: Export to GraphML
+Do you want to create a visualization graph with the findings? You can export the whole domain analysis to a GraphML file and open it with yED, Gephi or any tool of your choice. It currently exports files, people, emails, social profiles, registered sites and usernames. URLs and subdomains are not included due to the amount of results.
+<p align="center"><img src="https://github.com/xampla/InfoHound/blob/main/graph_example.png" alt="Graph visualization example" width="50%"></p>
 
 ## :bulb: Inspired by
 * [Holehe](https://github.com/megadose/holehe)
