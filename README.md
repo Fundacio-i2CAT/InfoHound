@@ -17,6 +17,11 @@ You can now access infohound navigating with your browser to:
 http://localhost:8000/infohound/
 ```
 **NOTE:** You must add API Keys inside infohound_config.py file
+
+#### Google Programmable Search Engine API
+* [Create your custom engine and get the ID](https://programmablesearchengine.google.com/controlpanel/all)
+* [Create API KEY](https://developers.google.com/custom-search/v1/overview)
+
 ## Default modules
 InfoHound has 2 different types of modules, those which retreives data and those which analyse it to extract more relevant information.
 ### :mag: Retrieval modules
