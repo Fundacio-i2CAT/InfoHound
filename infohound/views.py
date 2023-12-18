@@ -22,7 +22,6 @@ def index(request):
 def add_domain(request):
     domain_name = request.GET['domain']
     full_passive = False if request.GET['full_passive'] == "false" else True
-    print(full_passive)
     if Domain.objects.filter(domain=domain_name).exists():
         data = {'error': "Invalid domain"}
     else:
@@ -58,7 +57,6 @@ def get_domains(request):
 
 def domain_info(request, domain_id):
     domain = Domain.objects.get(id=domain_id)
-    print(domain.dns_records)
     if domain.whois_data or domain.dns_records:
         data = {'whois': domain.whois_data, 'dns': domain.dns_records}
     else:

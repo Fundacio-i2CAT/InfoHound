@@ -10,7 +10,6 @@ def getProfiles(domain):
 	for entry in queryset.iterator():
 		output = esult=os.popen("maigret "+entry.username).read()
 		lines = output.split('\n')
-		print(lines)
 		data = entry.profiles
 		for line in lines:
 			match = re.match(r'\[\+\] (\S.*): (.+)', line.strip())

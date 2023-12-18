@@ -19,12 +19,13 @@ def getSubdomains(domain,subd=[]):
 
 def getAllUrls(domain):
 	print("Getting all URLs from Web Archive...")
+	path = "https://web.archive.org/cdx/search/cdx?matchType=domain&fl=original,timestamp&output=json&collapse=urlkey&url="
 	url_list = []
 	url = path + domain
 	r = requests.get(url)
 	data = json.loads(r.text)
 	for entry in data:
-		url_list.append(entry[0])
+		url_list.append((entry[0],"https://web.archive.org/web/"+entry[1]+"/"+entry[0]))
 	return url_list
 
 def getDownloadURL(file):

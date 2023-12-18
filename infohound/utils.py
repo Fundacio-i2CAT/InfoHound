@@ -19,7 +19,7 @@ def load_tasks(domain_id):
     {"name_id":"findEmailsTask","name":"Find Email", "description":"It lookes for emails using queries to Google and Bing.", "type":"Retrieve"},
     {"name_id":"findSocialProfilesByEmailTask","name":"Find people from emails", "description":"Once some emails have been found it can be useful to discover the person behind them. Also, it finds usernames from that people.", "type":"Retrieve"},
     {"name_id":"findEmailsFromURLsTask","name":"Find Emails From Urls", "description":"Sometimes, the discoverd URLs can contain sentive information. This tasks retrive all the emails from URL paths.", "type":"Retrieve"},
-    {"name_id":"executeDorksTask","name":"Execute dorks", "description":"It will execute the dorks defined in the dorks folder. Remember to grup the dorks by categories (filename) so you can later understand the objatives of the dorks.", "type":"Retrieve"},
+    {"name_id":"executeDorksTask","name":"Execute dorks", "description":"It will execute the dorks defined in the dorks folder. Remember to grup the dorks by categories (filename) so you can later understand the objectives of the dorks.", "type":"Retrieve"},
     {"name_id":"findEmailsFromDorksTask","name":"Find Emails From Dorks", "description":"By default, InfoHound has some dorks defined in order to discover emails. This task will look for them in the results obtained by the execution of the dorks.", "type":"Retrieve"},
     # ANALYSIS
     {"name_id":"subdomainTakeOverAnalysisTask","name":"Check Subdomains Take-Over", "description":"It performes some checks to determine if a subdomain can be taken over.", "type":"Analysis"},
