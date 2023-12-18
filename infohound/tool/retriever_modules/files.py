@@ -16,7 +16,7 @@ file_types = ["doc","docx","ppt","pptx","pps","ppsx","xls","xlsx",
 
 #concurrency_limit = trio.CapacityLimiter(5)
 
-
+"""
 async def process_url(url, source, domain_id):
 	path = urlparse(url).path
 	ext = path.split(".")[-1:][0]
@@ -46,6 +46,8 @@ async def process_url(url, source, domain_id):
 				pass
 			print(url_file)
 
+
+
 async def get_files_from_urls(domain_id):
 	domain = Domain.objects.get(id=domain_id)
 	domain_name = domain.domain
@@ -60,3 +62,22 @@ async def get_files_from_urls(domain_id):
 			source = urls[url]
 			nursery.start_soon(process_url, url, source, domain_id)
 
+"""
+def get_files_from_urls(domain_id):
+	domain = Domain.objects.get(id=domain_id)
+	domain_name = domain.domain
+	full_passive = domain.full_passive
+	queryset = URLs.objects.filter(domain_id=domain_id, archive_url__isnull=False) if full_passive else URLs.objects.filter(domain_id=domain_id)
+	for entry in queryset.iterator():
+		path = urlparse(entry.url).path
+		ext = path.split(".")[-1:][0]
+		fname = path.split("/")[-1:][0]
+		if ext in file_types:
+			try:
+				if entry.source == "Archive":
+					download_url = entry.archive_url[0:42] + "if_" + entry.archive_url[42:]
+					Files.objects.get_or_create(url=entry, url_download=download_url, filename=fname, source=entry.source, domain_id=domain_id)
+				else:
+					Files.objects.get_or_create(url=entry, url_download=entry.url, filename=fname, source=entry.source, domain_id=domain_id)
+			except IntegrityError as e:
+					pass

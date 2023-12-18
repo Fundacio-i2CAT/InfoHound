@@ -38,6 +38,7 @@ class Subdomains(models.Model):
 
 class URLs(models.Model):
     url = models.TextField()
+    archive_url = models.TextField(null=True)
     source = models.CharField(max_length=255)
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
     class Meta:

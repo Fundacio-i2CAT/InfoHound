@@ -10,7 +10,7 @@ def getURLs(domain_id):
 	url_list = archive.getAllUrls(domain)
 	for url in url_list:
 		try:
-			URLs.objects.get_or_create(url=url, source="Archive", domain_id=domain_id)
+			URLs.objects.get_or_create(url=url[0], archive_url=url[1], source="Archive", domain_id=domain_id)
 		except IntegrityError as e:
 				pass
 	

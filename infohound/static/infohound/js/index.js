@@ -110,7 +110,7 @@ function loadDomainInfo(domain_id) {
       var dns_a_records = document.getElementById("dns-A-records");
       var dns_aaaa_records = document.getElementById("dns-AAAA-records");
       var dns_mx_records = document.getElementById("dns-MX-records");
-      
+
       if (data["whois"] !== null) {
         domain_name.textContent = "domain_name" in data["whois"] ? data["whois"]["domain_name"] : undefined
         domain_registrar.textContent = "registrar" in data["whois"] ? data["whois"]["registrar"] : undefined

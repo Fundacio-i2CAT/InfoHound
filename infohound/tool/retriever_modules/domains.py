@@ -1,5 +1,6 @@
 import whois
 import socket
+import datetime
 import dns.resolver
 import infohound.infohound_config as config
 #from ipwhois import IPWhois
@@ -33,11 +34,20 @@ def getWhoisInfo(domain_id):
         }
 
         if whois_obj.creation_date:
-            info['creation_date'] = [d.strftime('%Y-%m-%d %H:%M:%S') for d in whois_obj.creation_date]
+            if isinstance(whois_obj.creation_date, list):
+                info['creation_date'] = [d.strftime('%Y-%m-%d %H:%M:%S') for d in whois_obj.creation_date]
+            else:
+                info['creation_date'] = [whois_obj.creation_date.strftime('%Y-%m-%d %H:%M:%S')]
         if whois_obj.expiration_date:  
-            info['expiration_date'] =[d.strftime('%Y-%m-%d %H:%M:%S') for d in whois_obj.expiration_date],
+            if isinstance(whois_obj.expiration_date, list):
+                info['expiration_date'] =[d.strftime('%Y-%m-%d %H:%M:%S') for d in whois_obj.expiration_date]
+            else:
+                info['expiration_date'] = [whois_obj.expiration_date.strftime('%Y-%m-%d %H:%M:%S')]
         if whois_obj.updated_date:
-            info['updated_date'] =[d.strftime('%Y-%m-%d %H:%M:%S') for d in whois_obj.updated_date],
+            if isinstance(whois_obj.updated_date, list):
+                info['updated_date'] =[d.strftime('%Y-%m-%d %H:%M:%S') for d in whois_obj.updated_date]
+            else:
+                info['updated_date'] = [whois_obj.updated_date.strftime('%Y-%m-%d %H:%M:%S')]
             
         domain.whois_data = info
         domain.save()

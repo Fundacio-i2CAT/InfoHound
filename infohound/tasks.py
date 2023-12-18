@@ -27,7 +27,8 @@ def getURLsTask(self, domain):
 
 @shared_task(bind=True, name="get_files_from_urls")
 def getFilesFromURLsTask(self, domain):
-	trio.run(files.get_files_from_urls, domain)
+	#trio.run(files.get_files_from_urls, domain)
+	files.get_files_from_urls(domain)
 
 @shared_task(bind=True, name="find_emails")
 def findEmailsTask(self, domain):
