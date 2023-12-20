@@ -114,3 +114,13 @@ Do you want to create a visualization graph with the findings? You can export th
 * [reconFTW](https://github.com/six2dez/reconftw)
 * [Poastal](https://github.com/jakecreps/poastal)
 * And many others
+
+# Copyright
+This code has been developed by Fundació Privada Internet i Innovació Digital a Catalunya (i2CAT).
+i2CAT is a *non-profit research and innovation centre* that  promotes mission-driven knowledge to solve business challenges, co-create solutions with a transformative impact, empower citizens through open and participative digital social innovation with territorial capillarity, and promote pioneering and strategic initiatives.
+i2CAT *aims to transfer* research project results to private companies in order to create social and economic impact via the out-licensing of intellectual property and the creation of spin-offs.
+Find more information of i2CAT projects and IP rights at https://i2cat.net/tech-transfer/
+
+# License
+This code is licensed under the terms *AGPLv3*. Information about the license can be located at [link](https://www.gnu.org/licenses/agpl-3.0.html).
+If you find that this license doesn't fit with your requirements regarding the use, distribution or redistribution of our code for your specific work, please, don’t hesitate to contact the intellectual property managers in i2CAT at the following address: techtransfer@i2cat.net
