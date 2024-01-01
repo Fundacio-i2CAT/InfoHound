@@ -310,18 +310,14 @@ function loadTasks() {
                     "findEmailsTask", "findEmailsFromURLsTask", "findSocialProfilesByEmailTask"]
     data.forEach(task => {
       const card = document.createElement('div');
-      card.className = 'card shadow mb-3';
+      card.className = 'col-md-4 p-3';
       b = `
-        <div class="col-1 d-flex justify-content-center align-items-center">
-          <button id="${task.id}" type="button" class="btn btn-primary task-executer">Execute</button>
-        </div>
+        <button id="${task.id}" type="button" class="btn btn-primary task-executer">Execute</button>
       `;
       pb = "";
       if(task.state == "PENDING") {
         b = `
-          <div class="col-1 d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-info" disabled>${task.state}</button>
-          </div>
+          <button type="button" class="btn btn-info" disabled>${task.state}</button>
         `
         pb = `
           <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
@@ -362,17 +358,35 @@ function loadTasks() {
               </h5>`
       }
 
+      ai_badge = "";
+      if(task.ai) {
+        ai_badge =  `
+        <span class="badge-sm rounded-pill text-bg-info align-text-bottom" style="position: relative; top: -10px; font-size: 0.8rem">
+        <span class="m-1">AI Powered</span>
+        </span>
+      `
+      }
+
       card.innerHTML = `
-        <div class="card-body">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column">
           <div class="row">
-            <div class="col-11">
+            <div class="col-md-12">
               ${h5}
+              ${ai_badge}
               <p class="card-text">${task.description}</p>
-              ${pb}
             </div>  
-            ${b}
+          </div>
+          <div class="row flex-fill">
+            <div class="col-md-12 d-flex justify-content-end align-items-end">
+              ${b}
+            </div>
+          </div>
+          <div class="col-md-12 pt-1">
+              ${pb}
           </div>
         </div>
+      </div>
       `;
       if (task.type == "Retrieve") {
         taskRetrievalContainer.appendChild(card);

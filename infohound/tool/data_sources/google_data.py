@@ -50,6 +50,11 @@ def getUrls(query):
 	#- files
 	#- url
 
+def discoverPeople (domain):
+	url_base = f""
+	#
+	# TO-DO
+	#
 
 def discoverEmails(domain):
 	emails = []

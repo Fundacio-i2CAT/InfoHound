@@ -10,6 +10,7 @@ from django.utils import timezone
 
 def load_tasks(domain_id):
     tasks = [
+    # RETRIEVAL
     {"name_id":"getWhoisInfoTask","name":"Get Whois Info", "description":"Get revelant information from Whois register.", "type":"Retrieve"},
     {"name_id":"getDNSRecordsTask","name":"Get DNS Records", "description":"This task queries the DNS.", "type":"Retrieve"},
     {"name_id":"getSubdomainsTask","name":"Get Subdomains", "description":"This task uses Alienvault OTX API, CRT.sh and HackerTarget as data sources to discover cached subdomains.", "type":"Retrieve"},
@@ -21,6 +22,7 @@ def load_tasks(domain_id):
     {"name_id":"findEmailsFromURLsTask","name":"Find Emails From Urls", "description":"Sometimes, the discoverd URLs can contain sentive information. This tasks retrive all the emails from URL paths.", "type":"Retrieve"},
     {"name_id":"executeDorksTask","name":"Execute dorks", "description":"It will execute the dorks defined in the dorks folder. Remember to grup the dorks by categories (filename) so you can later understand the objectives of the dorks.", "type":"Retrieve"},
     {"name_id":"findEmailsFromDorksTask","name":"Find Emails From Dorks", "description":"By default, InfoHound has some dorks defined in order to discover emails. This task will look for them in the results obtained by the execution of the dorks.", "type":"Retrieve"},
+    {"name_id":"findPeopleFromGoogle","name":"Find People From Google", "description":"Uses the Google JSON API to find people who work in the company asociated to the domain", "type":"Retrieve"},
     # ANALYSIS
     {"name_id":"subdomainTakeOverAnalysisTask","name":"Check Subdomains Take-Over", "description":"It performes some checks to determine if a subdomain can be taken over.", "type":"Analysis"},
     {"name_id":"canBeSpoofedTask","name":"Check If Domain Can Be Spoofed", "description":"It checks if a domain, from the emails InfoHound has discovered, can be spoofed. This could be used by attackers to impersonate a person and send emails as hime/her.", "type":"Analysis"},

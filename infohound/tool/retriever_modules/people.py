@@ -5,6 +5,14 @@ from django.db import IntegrityError
 from infohound.tool.data_sources import google_data, bing_data
 from infohound.models import Domain,People,Emails,Usernames
 
+#ADDED BY M.CASADO - PROOF OF CONCEPT#
+def findPeopleFromGoogle(domain_id):
+	domain = Domain.objects.get(id=domain_id).domain
+	results = google_data.discoverPeople(domain)
+	#
+	# TO-DO
+	#	
+
 def findSocialProfilesByEmail(domain_id):
 	queryset = Emails.objects.filter(people_id__isnull=True, domain_id=domain_id)
 	domain = Domain.objects.get(id=domain_id).domain
