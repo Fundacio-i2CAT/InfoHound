@@ -14,3 +14,4 @@ SHODAN_KEY = "" #currently not used
 LEAK_LOOKUP_KEY = ""
 GOOGLE_API_KEY = ""
 GOOGLE_ID = ""
+OPENAI_API_KEY = ""

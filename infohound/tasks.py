@@ -4,6 +4,9 @@ from celery import shared_task
 import trio
 import importlib
 
+# ------------------------------------- #
+# ------------- RETRIEVAL ------------- #
+# ------------------------------------- #
 
 @shared_task(bind=True, name="get_whois_info")
 def getWhoisInfoTask(self, domain):
@@ -50,9 +53,14 @@ def executeDorksTask(self, domain):
 def findEmailsFromDorksTask(self, domain):
 	emails.findEmailsFromDorks(domain)
 
+@shared_task(bind=True, name="find_people_from_google")
+def findPeopleFromGoogle(self, domain):
+	people.findPeopleFromGoogle(domain)
 
-
-# -------------ANALYSIS-------------
+# ------------------------------------- #
+# ------------- ANALYSIS -------------- #
+# ------------------------------------- #
+	
 @shared_task(bind=True, name="subdomain_take_over_analysis")
 def subdomainTakeOverAnalysisTask(self, domain):
 	domain_analysis.subdomainTakeOverAnalysis(domain)

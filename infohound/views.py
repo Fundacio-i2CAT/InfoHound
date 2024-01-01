@@ -11,10 +11,12 @@ from django.http import JsonResponse
 from infohound.models import Domain, People, Files, Emails, Subdomains, URLs, Dorks, Results, Usernames, Tasks
 import infohound.tasks
 import infohound.utils
+import infohound.infohound_config
 from django.utils import timezone
 import infohound.tool.retriever_modules.dorks as dorks
 from django.db import IntegrityError
 from django.utils.safestring import mark_safe
+
 
 def index(request):
     return render(request, 'index.html')
@@ -203,6 +205,8 @@ def get_available_tasks(request):
         data["description"] = entry.description
         data["type"] = entry.task_type
         data["custom"] = entry.custom
+        # if infohound.infohound_config.OPENAI_API_KEY == "":
+        data["ai"] = False
         if entry.last_execution:
             data["last_execution"] = entry.last_execution.strftime("%d/%m/%y %H:%M")
         if entry.celery_id:
