@@ -1,6 +1,7 @@
 import requests
 import json
 import html
+import time
 import urllib.parse
 import infohound.tool.infohound_utils as infohound_utils
 from bs4 import BeautifulSoup
@@ -50,11 +51,48 @@ def getUrls(query):
 	#- files
 	#- url
 
-def discoverPeople (domain):
-	url_base = f""
-	#
-	# TO-DO
-	#
+def discoverPeople (query):
+	start = 1
+	total_results = 0
+	total_gathered = 0
+	limit = False
+	results = True
+	people = []
+
+	print("Testing query: " + query)
+
+	while results and start < 100 and not limit:
+		payload = {"key":API_KEY,"cx":ID,"start":start,"q":query}
+		res = requests.get("https://www.googleapis.com/customsearch/v1",params=payload)
+		data = json.loads(res.text)
+		if "error" in data:
+			print(data["error"]["status"])
+			limit = True
+		else:
+			if start == 1:
+				total_results = data["searchInformation"]["totalResults"]
+			if "items" in data:
+				for item in data["items"]:
+					try:
+						url = item["link"]
+						first_name = item["pagemap"]["metatags"][0]["profile:first_name"]
+						last_name = item["pagemap"]["metatags"][0]["profile:last_name"]
+						url_img = item["pagemap"]["cse_image"][0]["src"]
+						name = f"{first_name} {last_name}"
+						people.append((name,url,json.dumps(item),url_img))
+						print("Added: " + name)
+						total_gathered = total_gathered + 1
+					except KeyError as e:
+						print(f"Error: La clave '{e.args[0]}' no existe en la estructura de datos.")
+					except Exception as e:
+						print(f"Error inesperado: {str(e)}")
+			else:
+				results = False
+		start = start + 10
+		time.sleep(1)
+		
+	print("Found "+str(total_results)+" and added "+str(total_gathered))
+	return (people)
 
 def discoverEmails(domain):
 	emails = []

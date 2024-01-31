@@ -12,6 +12,7 @@ services:
       - db
       - redis
       - celery_worker
+      - ollama
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -19,6 +20,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     command: sh -c "python manage.py makemigrations infohound && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+  
   celery_worker:
     build:
       context: .
@@ -35,10 +37,12 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     command: sh -c "celery -A infohound_project worker --loglevel=info"
+
   redis:
     image: redis:latest
     ports:
       - '6378:6379'
+
   db:
     image: postgres:12
     volumes:
@@ -47,5 +51,20 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=infohound_db
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - '11434:11434'  
+    environment: 
+      - gpus=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver:  nvidia
+              count: 1
+              capabilities: [gpu]
 volumes:
   postgres_data:
+

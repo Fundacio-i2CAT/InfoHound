@@ -1,5 +1,5 @@
 from infohound.tool.retriever_modules import domains,subdomains,urls,files,emails,people,dorks
-from infohound.tool.analysis_modules import domain_analysis,email_analysis,files_analysis,usernames_analysis
+from infohound.tool.analysis_modules import domain_analysis,email_analysis,files_analysis,usernames_analysis,people_analisys
 from celery import shared_task
 import trio
 import importlib
@@ -54,7 +54,7 @@ def findEmailsFromDorksTask(self, domain):
 	emails.findEmailsFromDorks(domain)
 
 @shared_task(bind=True, name="find_people_from_google")
-def findPeopleFromGoogle(self, domain):
+def findPeopleFromGoogleTask(self, domain):
 	people.findPeopleFromGoogle(domain)
 
 # ------------------------------------- #
@@ -96,6 +96,10 @@ def findRegisteredSitesTask(self, domain):
 @shared_task(bind=True, name="check_breach")
 def checkBreachTask(self, domain):
 	email_analysis.checkBreach(domain)
+
+@shared_task(bind=True, name="summarize_profile")
+def summarize_profile(self, domain):
+	people_analisys.summarize_profile(domain)
 
 # --------------CUSTOM--------------
 
