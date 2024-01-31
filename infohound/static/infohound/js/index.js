@@ -186,34 +186,36 @@ function loadPeople() {
       person_name = person.name.length == 0 ? "[Not found]" : person_name
 
       card.innerHTML = `
-        <div class="row g-0">
-          <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="80%" height="80%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
+      <div class="card-body">
+        <div class="row">
+        <div class="col-md-3 p-1">
+          <img src="${person.url_img}" class="img-fluid float-left">
+        </div>
+        <div class="col-md-9">
+          <h5 class="card-title">${person_name}</h5>
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-envelope-fill me-2"></i>
+            <span class="me-3">${person.emails}</span>
+            <i class="bi bi-telephone-fill me-2"></i>
+            <span class="me-3">${person.phones}</span>
+            <i class="bi bi-key-fill me-2"></i>
+            <span class="me-3">${person.keys}</span>
+            <i class="bi bi-person-fill me-2"></i>
+            <span>${person.accounts}</span>
           </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">${person_name}</h5>
-              <div class="d-flex align-items-center mb-2">
-                <i class="bi bi-envelope-fill me-2"></i>
-                <span class="me-3">${person.emails}</span>
-                <i class="bi bi-telephone-fill me-2"></i>
-                <span class="me-3">${person.phones}</span>
-                <i class="bi bi-key-fill me-2"></i>
-                <span class="me-3">${person.keys}</span>
-                <i class="bi bi-person-fill me-2"></i>
-                <span>${person.accounts}</span>
-              </div>
-              <hr>
-              <div class="d-flex align-items-center justify-content-center">
-                ${socialIcons}
-              </div>
-              <div class="personID d-none">${person.id}</div>
-            </div>
+          <div class="col-md-12"> 
+            <small>${person.ocupation_summary}</small>
+          </div>
+          <hr>
+          <div class="d-flex align-items-center justify-content-center">
+           <!--${socialIcons}-->
+          </div> 
+          <div class="personID d-none">
+            ${person.id}
           </div>
         </div>
+        </div>
+      </div>
       `;
       col.appendChild(card)
       cardContainer.append(col);
@@ -358,22 +360,12 @@ function loadTasks() {
               </h5>`
       }
 
-      ai_badge = "";
-      if(task.ai) {
-        ai_badge =  `
-        <span class="badge-sm rounded-pill text-bg-info align-text-bottom" style="position: relative; top: -10px; font-size: 0.8rem">
-        <span class="m-1">AI Powered</span>
-        </span>
-      `
-      }
-
       card.innerHTML = `
       <div class="card shadow h-100">
         <div class="card-body d-flex flex-column">
           <div class="row">
             <div class="col-md-12">
               ${h5}
-              ${ai_badge}
               <p class="card-text">${task.description}</p>
             </div>  
           </div>

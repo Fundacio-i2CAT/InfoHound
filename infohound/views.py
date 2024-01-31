@@ -81,6 +81,8 @@ def people_all(request):
         p["name"] = entry.name
         p["phones"] = len(entry.phones)
         p["accounts"] = 0
+        p["ocupation_summary"] = entry.ocupation_summary
+        p["url_img"] = entry.url_img
         user = Usernames.objects.filter(people=entry, domain_id=domain_id)
         emails = Emails.objects.filter(people=entry, domain_id=domain_id)
         for em in user.iterator():
@@ -194,7 +196,6 @@ def get_emails_stats(request, domain_id):
 def get_available_tasks(request):
     infohound.utils.load_tasks(request.GET['domain_id'])
     infohound.utils.load_custom_tasks(request.GET['domain_id'])
-    
     tasks = []
     queryset = Tasks.objects.filter(domain_id=request.GET['domain_id']).order_by('id')
     for entry in queryset.iterator():
@@ -205,12 +206,8 @@ def get_available_tasks(request):
         data["description"] = entry.description
         data["type"] = entry.task_type
         data["custom"] = entry.custom
-        # if infohound.infohound_config.OPENAI_API_KEY == "":
-        data["ai"] = False
-        if entry.last_execution:
-            data["last_execution"] = entry.last_execution.strftime("%d/%m/%y %H:%M")
-        if entry.celery_id:
-            data["state"] = AsyncResult(entry.celery_id).state
+        data["last_execution"] = entry.last_execution.strftime("%d/%m/%y %H:%M") if (entry.last_execution) else None
+        data["state"] = AsyncResult(entry.celery_id).state if (entry.celery_id) else None
         tasks.append(data)
     return JsonResponse(tasks, safe=False)
 
