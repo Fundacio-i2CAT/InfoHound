@@ -2,11 +2,11 @@
 During the reconnaissance phase, an attacker searches for any information about his target to create a profile that will later help him to identify possible ways to get in an organization. InfoHound performs passive analysis techniques (which do not interact directly with the target) using OSINT to extract a large amount of data given a web domain name. This tool will retrieve emails, people, files, subdomains, usernames and urls that will be later analyzed to extract even more valuable information. 
 
 ## :house: Infohound architecture
-<p align="center"><img src="https://github.com/xampla/InfoHound/blob/main/infohound_diagram.jpg" alt="Infohound diagram" ></p>
+<p align="center"><img src="https://github.com/Fundacio-i2CAT/InfoHound/blob/main/infohound_diagram.jpg" alt="Infohound diagram" ></p>
 
 ## 🛠️ Installation
 ```
-git clone https://github.com/xampla/InfoHound.git
+git clone https://github.com/Fundacio-i2CAT/InfoHound.git
 cd InfoHound/infohound
 mv infohound_config.sample.py infohound_config.py
 cd ..
