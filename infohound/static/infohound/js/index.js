@@ -208,7 +208,7 @@ function loadPeople() {
           </div>
           <hr>
           <div class="d-flex align-items-center justify-content-center">
-           <!--${socialIcons}-->
+           ${socialIcons}
           </div> 
           <div class="personID d-none">
             ${person.id}
