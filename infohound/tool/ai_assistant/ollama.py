@@ -1,4 +1,4 @@
-from langchain.llms import Ollama
+from langchain_community.llms import Ollama
 from infohound_project import settings
 
 def ollama_flexible_prompt(in_prompt):
