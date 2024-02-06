@@ -56,15 +56,16 @@ services:
     image: ollama/ollama:latest
     ports:
       - '11434:11434'  
-    environment: 
-      - gpus=all
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver:  nvidia
-              count: 1
-              capabilities: [gpu]
+    # Uncomment if you want to use GPU. More info: https://ollama.ai/blog/ollama-is-now-available-as-an-official-docker-image
+    #environment: 
+    #  - gpus=all
+    #deploy:
+    #  resources:
+    #    reservations:
+    #      devices:
+    #        - driver:  nvidia
+    #          count: 1
+    #          capabilities: [gpu]
 volumes:
   postgres_data:
 
