@@ -83,9 +83,9 @@ def discoverPeople (query):
 						print("Added: " + name)
 						total_gathered = total_gathered + 1
 					except KeyError as e:
-						print(f"Error: La clave '{e.args[0]}' no existe en la estructura de datos.")
+						print(f"Error: The key '{e.args[0]}' is not present in the results.")
 					except Exception as e:
-						print(f"Error inesperado: {str(e)}")
+						print(f"Unexpected error: {str(e)}")
 			else:
 				results = False
 		start = start + 10
