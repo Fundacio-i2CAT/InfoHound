@@ -11,7 +11,6 @@ from django.http import JsonResponse
 from infohound.models import Domain, People, Files, Emails, Subdomains, URLs, Dorks, Results, Usernames, Tasks
 import infohound.tasks
 import infohound.utils
-import infohound.infohound_config
 from django.utils import timezone
 import infohound.tool.retriever_modules.dorks as dorks
 from django.db import IntegrityError
