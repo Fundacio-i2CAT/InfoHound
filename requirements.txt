@@ -21,4 +21,4 @@ svgwrite==1.4.3
 textract==1.6.5
 trio==0.22.0
 networkx
-langchain
+langchain_community
