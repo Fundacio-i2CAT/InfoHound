@@ -11,13 +11,13 @@ from django.utils import timezone
 def load_tasks(domain_id):
     tasks = [
     # RETRIEVAL
-    {"name_id":"getWhoisInfoTask","name":"Get Whois Information", "description":"Get revelant information from Whois register.", "type":"Retrieve"},
+    {"name_id":"getWhoisInfoTask","name":"Get Whois Information", "description":"Get relevant information from Whois register.", "type":"Retrieve"},
     {"name_id":"getDNSRecordsTask","name":"Get DNS Records", "description":"This task queries the DNS.", "type":"Retrieve"},
     {"name_id":"getSubdomainsTask","name":"Get Subdomains", "description":"This task uses Alienvault OTX API, CRT.sh and HackerTarget as data sources to discover cached subdomains.", "type":"Retrieve"},
     {"name_id":"getSubdomainsFromURLSTask","name":"Get Subdomains from URLs", "description":"Once some tasks have been performed, the URLs table will have a lot of entries. This task will check all the URLS in order to find new subdomains.", "type":"Retrieve"},
     {"name_id":"getURLsTask","name":"Get URLs", "description":"It searches all URLs cached by Wayback Machine and saves them into the database. This will later help to discover other data entities like files or subdomains.", "type":"Retrieve"},
     {"name_id":"getFilesFromURLsTask","name":"Get Files from URLs", "description":"It loops through the URLs database table in order to find files and store them to the Files database. The files that will be retrieved are: doc, docx, ppt, pptx, pps, ppsx, xls, xlsx, odt, ods, odg, odp, sxw, sxc, sxi, pdf, wpd, svg, indd, rdp, ica, zip, rar", "type":"Retrieve"},
-    {"name_id":"findEmailsTask","name":"Find Emails", "description":"It lookes for emails using queries to Google and Bing.", "type":"Retrieve"},
+    {"name_id":"findEmailsTask","name":"Find Emails", "description":"It looks for emails using queries to Google and Bing.", "type":"Retrieve"},
     {"name_id":"findSocialProfilesByEmailTask","name":"Find People from Emails", "description":"Once some emails have been found it can be useful to discover the person behind them. Also, it finds usernames from that people.", "type":"Retrieve"},
     {"name_id":"findEmailsFromURLsTask","name":"Find Emails From URLs", "description":"Sometimes, the discoverd URLs can contain sentive information. This tasks retrive all the emails from URL paths.", "type":"Retrieve"},
     {"name_id":"executeDorksTask","name":"Execute Dorks", "description":"It will execute the dorks defined in the dorks folder. Remember to grup the dorks by categories (filename) so you can later understand the objectives of the dorks.", "type":"Retrieve"},
