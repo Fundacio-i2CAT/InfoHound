@@ -11,10 +11,10 @@ class People(models.Model):
     name = models.CharField(max_length=255)
     phones = models.JSONField(default=list, null=True)
     social_profiles = models.JSONField(default=list)
-    source = models.CharField(max_length=255)
     ocupation_summary = models.TextField(default="This profile doesn't have a description yet. You can use the profile analysis task to employ an AI-powered tool that examines the metadata and creates a description for you.")
     raw_metadata = models.TextField (default=None)
     url_img = models.TextField(default="https://static.thenounproject.com/png/994628-200.png")
+    source = models.CharField(max_length=255)
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
 
 # TO-DO: change spoofable to allow 3 states
