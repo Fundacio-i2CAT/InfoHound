@@ -1,11 +1,8 @@
 from langchain_community.llms import Ollama
-from infohound_project import settings
+from infohound_project.settings import OLLAMA_URL, OLLAMA_MODEL
 
 def ollama_flexible_prompt(in_prompt):
-    BASE_URL = "http://172.26.0.3:11434"
-    MODEL = "llama2"
-
-    ollama = Ollama(base_url=BASE_URL, model=MODEL)
+    ollama = Ollama(base_url=OLLAMA_URL, model=OLLAMA_MODEL)
 
     try:
         res = ollama(in_prompt)
