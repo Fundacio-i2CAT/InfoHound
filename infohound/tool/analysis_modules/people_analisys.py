@@ -14,4 +14,4 @@ def summarize_profile(domain_id):
             print ("Summary: " +entry.ocupation_summary)
             entry.save()
         except Exception as e:
-            print(f"Error inesperado: {str(e)}")
+            print(f"Unexpected error: {str(e)}")
