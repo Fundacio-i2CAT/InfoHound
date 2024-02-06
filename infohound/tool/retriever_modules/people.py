@@ -13,7 +13,7 @@ def findPeopleFromGoogle(domain_id):
 	results = google_data.discoverPeople(query)
 	for result in results:
 		try:
-			People.objects.get_or_create(name=result[0], social_profiles=result[1], raw_metadata=result[2], url_img=result[3], source="Google", domain_id=domain_id)
+			People.objects.get_or_create(name=result[0], social_profiles=[result[1]], raw_metadata=result[2], url_img=result[3], source="Google", domain_id=domain_id)
 		except IntegrityError as e:
 			pass
 
