@@ -144,7 +144,7 @@ def discoverSocialMedia(domain,email):
 	scope = email.split("@")[1]
 	
 	url = f"https://www.google.com/search?q='{username}' {scope}"
-	cookies = {"CONSENT": "YES+srp.gws"}
+	cookies = {"CONSENT": "YES+","SOCS":"CAISHAgCEhJnd3NfMjAyNDAxMzEtMF9SQzQaAmVzIAEaBgiAkIuuBg"}
 	
 	try:
 		user_agent = infohound_utils.getUserAgents()
