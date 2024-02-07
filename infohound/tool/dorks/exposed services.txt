@@ -4,3 +4,4 @@ site:<domain> inurl:wp-content | inurl:wp-includes
 intitle:traefik inurl:8080/dashboard "<domain>"
 intitle:"Dashboard [Jenkins]" "<domain>"
 site:<domain> inurl:signup | inurl:register | intitle:Signup
+site:/<doamin>:*/
