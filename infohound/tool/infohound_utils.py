@@ -33,8 +33,6 @@ def extractSocialInfo(text):
     if t is not None:
          data.append(t.group(0))
 
-
-
     # Twitter
     regex = r"(http(s)?:\/\/)?([\w]+\.)?twitter\.com\/[^&\/?\"\%]*"
     t = re.search(regex, text)

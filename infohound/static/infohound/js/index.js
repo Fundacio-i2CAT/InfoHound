@@ -186,34 +186,34 @@ function loadPeople() {
       person_name = person.name.length == 0 ? "[Not found]" : person_name
 
       card.innerHTML = `
-        <div class="row g-0">
-          <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="80%" height="80%" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">${person_name}</h5>
-              <div class="d-flex align-items-center mb-2">
-                <i class="bi bi-envelope-fill me-2"></i>
-                <span class="me-3">${person.emails}</span>
-                <i class="bi bi-telephone-fill me-2"></i>
-                <span class="me-3">${person.phones}</span>
-                <i class="bi bi-key-fill me-2"></i>
-                <span class="me-3">${person.keys}</span>
-                <i class="bi bi-person-fill me-2"></i>
-                <span>${person.accounts}</span>
-              </div>
-              <hr>
-              <div class="d-flex align-items-center justify-content-center">
-                ${socialIcons}
-              </div>
-              <div class="personID d-none">${person.id}</div>
-            </div>
-          </div>
+      <div class="card-body">
+        <div class="row">
+        <div class="col-md-3 p-1">
+          <img src="${person.url_img}" class="img-fluid float-left">
         </div>
+        <div class="col-md-9">
+          <h5 class="card-title">${person_name}</h5>
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-envelope-fill me-2"></i>
+            <span class="me-3">${person.emails}</span>
+            <i class="bi bi-telephone-fill me-2"></i>
+            <span class="me-3">${person.phones}</span>
+            <i class="bi bi-key-fill me-2"></i>
+            <span class="me-3">${person.keys}</span>
+            <i class="bi bi-person-fill me-2"></i>
+            <span>${person.accounts}</span>
+          </div>
+          <div class="col-md-12"> 
+            <small>${person.ocupation_summary}</small>
+          </div>
+          <hr>
+          <div class="d-flex align-items-center justify-content-center">
+           ${socialIcons}
+          </div> 
+          <div class="personID d-none">${person.id}</div>
+        </div>
+        </div>
+      </div>
       `;
       col.appendChild(card)
       cardContainer.append(col);
@@ -310,18 +310,14 @@ function loadTasks() {
                     "findEmailsTask", "findEmailsFromURLsTask", "findSocialProfilesByEmailTask"]
     data.forEach(task => {
       const card = document.createElement('div');
-      card.className = 'card shadow mb-3';
+      card.className = 'col-md-4 p-3';
       b = `
-        <div class="col-1 d-flex justify-content-center align-items-center">
-          <button id="${task.id}" type="button" class="btn btn-primary task-executer">Execute</button>
-        </div>
+        <button id="${task.id}" type="button" class="btn btn-primary task-executer">Execute</button>
       `;
       pb = "";
       if(task.state == "PENDING") {
         b = `
-          <div class="col-1 d-flex justify-content-center align-items-center">
-            <button type="button" class="btn btn-info" disabled>${task.state}</button>
-          </div>
+          <button type="button" class="btn btn-info" disabled>${task.state}</button>
         `
         pb = `
           <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
@@ -363,16 +359,24 @@ function loadTasks() {
       }
 
       card.innerHTML = `
-        <div class="card-body">
+      <div class="card shadow h-100">
+        <div class="card-body d-flex flex-column">
           <div class="row">
-            <div class="col-11">
+            <div class="col-md-12">
               ${h5}
               <p class="card-text">${task.description}</p>
-              ${pb}
             </div>  
-            ${b}
+          </div>
+          <div class="row flex-fill">
+            <div class="col-md-12 d-flex justify-content-end align-items-end">
+              ${b}
+            </div>
+          </div>
+          <div class="col-md-12 pt-1">
+              ${pb}
           </div>
         </div>
+      </div>
       `;
       if (task.type == "Retrieve") {
         taskRetrievalContainer.appendChild(card);
