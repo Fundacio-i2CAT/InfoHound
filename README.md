@@ -1,6 +1,8 @@
 # InfoHound - OSINT tool for domain profiling
 During the reconnaissance phase, an attacker searches for any information about his target to create a profile that will later help him to identify possible ways to get in an organization. InfoHound performs passive analysis techniques (which do not interact directly with the target) using OSINT to extract a large amount of data given a web domain name. This tool will retrieve emails, people, files, subdomains, usernames and urls that will be later analyzed to extract even more valuable information. 
 
+In addition, InfoHound leverages an Ollama instance, enabling it to harness the power of LLM (Large Language Models). By default, InfoHound utilizes llama2, a pre-trained LLM model, to generate brief descriptions of the roles of individuals within an organization. This functionality provides valuable insights into the organizational structure and facilitates the identification of key personnel. Moreover, ongoing development efforts aim to introduce additional features and enhancements to further enrich the tool's capabilities in the future.
+
 ## :house: Infohound architecture
 <p align="center"><img src="https://github.com/Fundacio-i2CAT/InfoHound/blob/main/infohound_diagram.jpg" alt="Infohound diagram" ></p>
 
@@ -38,6 +40,7 @@ InfoHound has 2 different types of modules, those which retreives data and those
 | Find Emails From URLs | Sometimes, the discovered URLs can contain sensitive information. This task retrieves all the emails from URL paths. |
 | Execute Dorks | It will execute the dorks defined in the dorks folder. Remember to group the dorks by categories (filename) to understand their objectives. |
 | Find Emails From Dorks | By default, InfoHound has some dorks defined to discover emails. This task will look for them in the results obtained from dork execution. |
+| Find People From Google | Uses the Google JSON API to find people who work in the company asociated to the domain |
 
 ### :microscope: Analysis
 | Name | Description |
@@ -51,6 +54,7 @@ InfoHound has 2 different types of modules, those which retreives data and those
 | Get Emails From Files Content | Usually, emails can be included in corporate files, so this task will retrieve all the emails from the downloaded files' content. |
 | Find Registered Services using Emails | It is possible to find services or social networks where an email has been used to create an account. This task will check if an email InfoHound has discovered has an account in Twitter, Adobe, Facebook, Imgur, Mewe, Parler, Rumble, Snapchat, Wordpress, and/or Duolingo. |
 | Check Breach | This task checks Firefox Monitor service to see if an email has been found in a data breach. Although it is a free service, it has a limitation of 10 queries per day. If Leak-Lookup API key is set, it also checks it. |
+| AI-Powered Profile Analisys | You can use the profile analysis task to employ an AI-powered tool that examines the metadata and creates a description for you. |
 
 ## :pill: Custom modules
 InfoHound lets you create custom modules, you just need to add your script inside `infohoudn/tool/custom_modules`. One custome module has been added as an example which uses [Holehe](https://github.com/megadose/holehe) tool to check if the emails previously are attached to an account on sites like Twitter, Instagram, Imgur and more than 120 others. 
