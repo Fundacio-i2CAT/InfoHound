@@ -3,6 +3,8 @@ During the reconnaissance phase, an attacker searches for any information about 
 
 In addition, InfoHound leverages an Ollama instance, enabling it to harness the power of LLM (Large Language Models). By default, InfoHound utilizes llama2, a pre-trained LLM model, to generate brief descriptions of the roles of individuals within an organization. This functionality provides valuable insights into the organizational structure and facilitates the identification of key personnel. Moreover, ongoing development efforts aim to introduce additional features and enhancements to further enrich the tool's capabilities in the future.
 
+**NOTE:** InfoHound does not require any special hardware to operate. However, it's important to consider the hardware requirements when using tasks that utilize the Large Language Model (LLM). For detailed information about the specific requirements for the LLM model you intend to use, please refer to the official [Ollama documentation](https://ollama.ai/library).
+
 ## :house: Infohound architecture
 <p align="center"><img src="https://github.com/Fundacio-i2CAT/InfoHound/blob/main/new_infohound_diagram.jpg" alt="Infohound diagram" ></p>
 
