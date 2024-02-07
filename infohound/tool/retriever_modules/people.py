@@ -47,17 +47,15 @@ def findSocialProfilesByEmail(domain_id):
                         usernames_data.append(username) 
                 except IntegrityError as e:
                     pass
-
             try:
                 p, created = People.objects.get_or_create(name=results["name"], social_profiles=results["links"], source="Google", domain_id=domain_id)
+                try:
+                    u, created = Usernames.objects.get_or_create(username=email.split("@")[0], source="Google", domain_id=domain_id)
+                    usernames_data.append(email.split("@")[0])  
+                
+                    Emails.objects.filter(email=email, domain_id=domain_id).update(people=p)
+                    Usernames.objects.filter(username__in=usernames_data, domain_id=domain_id).update(people=p)
+                except IntegrityError as e:
+                    pass
             except IntegrityError as e:
                 pass
-
-            try:
-                u, created = Usernames.objects.get_or_create(username=email.split("@")[0], source="Google", domain_id=domain_id)
-                usernames_data.append(email.split("@")[0])  
-            except IntegrityError as e:
-                pass
-            
-            Emails.objects.filter(email=email, domain_id=domain_id).update(people=p)
-            Usernames.objects.filter(username__in=usernames_data, domain_id=domain_id).update(people=p)
