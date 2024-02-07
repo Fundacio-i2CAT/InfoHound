@@ -134,3 +134,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #------------- CELERY -------------
 CELERY_BROKER_URL = 'redis://redis:6379'
 CELERY_RESULT_BACKEND = 'redis://redis:6379'
+
+#------------- OLLAMA -------------
+OLLAMA_URL = 'http://ollama:11434'
+OLLAMA_MODEL = 'llama2'
