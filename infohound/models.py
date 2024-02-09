@@ -16,6 +16,8 @@ class People(models.Model):
     url_img = models.TextField(default="https://static.thenounproject.com/png/994628-200.png")
     source = models.CharField(max_length=255)
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
+    class Meta:
+        unique_together = (('name', 'domain'),)
 
 # TO-DO: change spoofable to allow 3 states
 class Emails(models.Model):
@@ -103,5 +105,3 @@ class IPs(models.Model):
     all_info = models.TextField(null=True)
     is_vulnerable = models.BooleanField(null=True)
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
-
-
