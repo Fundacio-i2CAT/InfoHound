@@ -111,8 +111,11 @@ async def findRegisteredSitesHolehe(domain_id):
 <p align="center"><img src="https://github.com/xampla/InfoHound/blob/main/email_tab.png" alt="Emails tab" width="60%"></p>
 
 ## :eight_spoked_asterisk: Export to GraphML
-Do you want to create a visualization graph with the findings? You can export the whole domain analysis to a GraphML file and open it with yED, Gephi or any tool of your choice. It currently exports files, people, emails, social profiles, registered sites and usernames. URLs and subdomains are not included due to the amount of results.
+Do you want to create a visualization graph with the findings? You can export the whole domain analysis to a GraphML file and open it with yED, Gephi or any tool of your choice. It currently exports files, people, emails, social profiles, registered sites and usernames. URLs and subdomains are not included due to the amount of results. Maltego Example [Import Graph](https://docs.maltego.com/support/solutions/articles/15000010797-import-graph-from-table)
 <p align="center"><img src="https://github.com/xampla/InfoHound/blob/main/graph_example.png" alt="Graph visualization example" width="50%"></p>
+
+## :eight_spoked_asterisk: Export to Maltego
+Do you want to go forward with tools like Maltego for your extended investigations? You can export the whole domain analysis to a Maltego compatible file and open it there. [Importing in Maltego](https://docs.maltego.com/support/solutions/articles/15000010797-import-graph-from-table)
 
 ## :bulb: Inspired by
 * [Holehe](https://github.com/megadose/holehe)
