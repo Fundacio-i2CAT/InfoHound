@@ -114,6 +114,9 @@ async def findRegisteredSitesHolehe(domain_id):
 Do you want to create a visualization graph with the findings? You can export the whole domain analysis to a GraphML file and open it with yED, Gephi or any tool of your choice. It currently exports files, people, emails, social profiles, registered sites and usernames. URLs and subdomains are not included due to the amount of results.
 <p align="center"><img src="https://github.com/xampla/InfoHound/blob/main/graph_example.png" alt="Graph visualization example" width="50%"></p>
 
+## :eight_pointed_black_star: Export to Maltego
+Do you want to proceed with tools like Maltego for your extended investigations? You can export the entire domain analysis (including files, individuals, emails, social profiles, registered sites, and usernames) to a Maltego-compatible file (CSV) and open it there. You'll find the Maltego Column Mapping configuration file ([_maltego_mapping.mtz_](maltego_mapping.mtz)) in the project's root directory. [Learn more about importing into Maltego](https://docs.maltego.com/support/solutions/articles/15000010797-import-graph-from-table)
+
 ## :bulb: Inspired by
 * [Holehe](https://github.com/megadose/holehe)
 * [Maigret](https://github.com/soxoj/maigret)
