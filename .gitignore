@@ -1,7 +1,6 @@
 venv
+__pycache__/
 infohound/migrations
 infohound/infohound_config.py
 infohound/tool/downloaded_files/*
 !infohound/tool/downloaded_files/.gitkeep
-infohound/__pycache__
-infohound_project/__pycache__
