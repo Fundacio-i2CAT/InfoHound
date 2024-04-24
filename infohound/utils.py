@@ -33,7 +33,8 @@ def load_tasks(domain_id):
     {"name_id":"getEmailsFromFilesContentTask","name":"Get Emails From Files Content", "description":"Usually emails can be included in corporate files so this task will retrive all the emails from the downloaded files content.", "type":"Analysis"},
     {"name_id":"findRegisteredSitesTask","name":"Find Registered Services using emails", "description":"It is possible to find services or social networks where an emaill has been used to create an account. This task will check if an email InfoHound has discovered has an account in: Twitter, Adobe, Facebook, Imgur, Mewe, Parler, Rumble, Snapchat, Wordpress and/or Duolingo", "type":"Analysis"},
     {"name_id":"checkBreachTask","name":"Check Breach", "description":"This task checks Firefox Monitor service to see if an email has been found in a data breach. Although it is a free service, it has a limitation of 10 queries per day. If Leak-Lookup API key is set, it also checks it.", "type":"Analysis"},
-    {"name_id":"summarize_profile","name":"AI-Powered Profile Analisys", "description":"You can use the profile analysis task to employ an AI-powered tool that examines the metadata and creates a description for you.", "type":"Analysis"}]
+    {"name_id":"summarizeProfileTask","name":"AI-Powered Profile Analisys", "description":"You can use the profile analysis task to employ an AI-powered tool that examines the metadata and creates a description for you.", "type":"Analysis"},
+    {"name_id":"getLeakedPasswordsTask","name":"Get leaked passwords", "description":"Using Proxy Nova's free service, InfoHound can detect and display passwords from usernames found that have been leaked in the past.", "type":"Analysis"}]
     for task in tasks:
         try:
             Tasks.objects.get_or_create(tid=task["name_id"], name=task["name"], description=task["description"], task_type=task["type"], custom=False, domain_id=domain_id)

@@ -18,6 +18,5 @@ from django.urls import include, path
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    #path('', RedirectView.as_view(url='http://localhost/infohound/')),
-    path('infohound/', include('infohound.urls')),
+    path('', include('infohound.urls')),
 ]

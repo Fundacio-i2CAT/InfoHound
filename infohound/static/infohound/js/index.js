@@ -1,6 +1,6 @@
 function loadEmailTable() {
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
-  url = "/infohound/get_emails/"+domain_id
+  url = "/get_emails/"+domain_id
   $.getJSON(url, function (data) {
     var tableHead = $("#email-table-head");
     
@@ -51,7 +51,7 @@ function loadEmailTable() {
 }
 
 function loadStatCount(endpoint, element_id, domain_id) {
-  url = "/infohound/"+endpoint+"/"+domain_id+"/"
+  url = "/"+endpoint+"/"+domain_id+"/"
   $.getJSON(url, function (data) {
     var stat = $(element_id);
     stat.empty();
@@ -74,7 +74,7 @@ function drawChart(element_id, labels, data, title) {
 }
 
 function getEmailsStats(domain_id) {
-  url = "/infohound/emails_stats/"+domain_id+"/"
+  url = "/emails_stats/"+domain_id+"/"
   $.getJSON(url, function (data) {
     var labels = ["Leaked", "Not leaked"]
     var counts = [data["has_leak"], data["total"]-data["has_leak"]]
@@ -95,7 +95,7 @@ function getEmailsStats(domain_id) {
 }
 
 function loadDomainInfo(domain_id) {
-  url = "/infohound/domain/"+domain_id+"/"
+  url = "/domain/"+domain_id+"/"
   $.getJSON(url, function (data) {
     
     if(data["error"]) {
@@ -157,7 +157,7 @@ function loadDomainInfo(domain_id) {
 
 function loadPeople() {
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
-  url = "/infohound/people_all?domain_id="+domain_id
+  url = "/people_all?domain_id="+domain_id
   $.getJSON(url, function (data) {
     const cardContainer = $('#people-card-container');
     data.forEach(person => {
@@ -232,7 +232,7 @@ function loadPeople() {
 
 function loadPersonModal(personID) {
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
-  url = "/infohound/person_details/" + personID + "?domain_id=" + domain_id;
+  url = "/person_details/" + personID + "?domain_id=" + domain_id;
 
   const emailContainer = $("#personDetailedEmails");
   emailContainer.empty();
@@ -279,7 +279,7 @@ function loadPersonModal(personID) {
       const usernameTableRow = $("<tr>");
       usernameTableRow.html(`
         <th scope="row">${username.username}</th>
-        <td>${username.leak === "True" ? '<i class="bi bi-check2"></i>' : '<i class="bi bi-x-lg"></i>'}</td>
+        <td>${username.leaked === true ? '<i class="bi bi-check2"></i>' : '<i class="bi bi-x-lg"></i>'}</td>
         <td>${username.password}</td>
         <td>
           <div class="row">
@@ -304,7 +304,7 @@ function loadTasks() {
   const taskAnalysisContainer = document.getElementById("task-analysis-container");
   taskRetrievalContainer.innerHTML = "";
   taskAnalysisContainer.innerHTML = "";
-  url = "/infohound/get_tasks?domain_id="+domain_id
+  url = "/get_tasks?domain_id="+domain_id
   $.getJSON(url, function (data) {
     initial_tasks = ["getWhoisInfoTask","getDNSRecordsTask","getSubdomainsTask", "getURLsTask", "getSubdomainsFromURLSTask", 
                     "findEmailsTask", "findEmailsFromURLsTask", "findSocialProfilesByEmailTask"]
@@ -389,7 +389,7 @@ function loadTasks() {
 }
 
 function loadDomains() {
-  url = "/infohound/get_domains"
+  url = "/get_domains"
   $.getJSON(url, function (data) {
     if(data.length == 0) {
       var myModal = new bootstrap.Modal($('#addDomainModal'));
@@ -440,7 +440,7 @@ function loadDomains() {
 
 function loadDorks() {
   const domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
-  const url = "/infohound/get_dorks_results?domain_id=" + domain_id;
+  const url = "/get_dorks_results?domain_id=" + domain_id;
   $.getJSON(url, function (data) {
 
     var tableHead = $("#dork-table-head");
@@ -487,7 +487,7 @@ function loadDorks() {
 
 function loadSubdomains() {
   const domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
-  const url = "/infohound/get_subdomains?domain_id=" + domain_id;
+  const url = "/get_subdomains?domain_id=" + domain_id;
   $.getJSON(url, function (data) {
 
     var tableHead = $("#subdomains-table-head");
@@ -548,7 +548,7 @@ function loadData(nav_id, domain_id) {
   $('#nav-group .nav-link.active').removeClass('active');
   if(nav_id == "nav-general") {
     $('#nav-general').addClass('active');
-    $.ajax({url: "/infohound/general/", type: "GET", dataType: "html", success: function (data) {
+    $.ajax({url: "/general/", type: "GET", dataType: "html", success: function (data) {
       const content = document.getElementById("content");
       content.innerHTML = data;
       loadStatCount("people_count","#people-count-stats",domain_id)
@@ -562,7 +562,7 @@ function loadData(nav_id, domain_id) {
   }
   else if(nav_id == "nav-subdomains") {
     $('#nav-subdomains').addClass('active');
-    $.ajax({url: "/infohound/subdomains/", type: "GET", dataType: "html", success: function (data) {
+    $.ajax({url: "/subdomains/", type: "GET", dataType: "html", success: function (data) {
       const content = document.getElementById("content");
       content.innerHTML = data;
       loadSubdomains()
@@ -570,7 +570,7 @@ function loadData(nav_id, domain_id) {
   }
   else if(nav_id == "nav-people") {
     $('#nav-people').addClass('active');
-    $.ajax({url: "/infohound/people/", type: "GET", dataType: "html", success: function (data) {
+    $.ajax({url: "/people/", type: "GET", dataType: "html", success: function (data) {
       const content = document.getElementById("content");
       content.innerHTML = data;
       loadPeople()
@@ -578,7 +578,7 @@ function loadData(nav_id, domain_id) {
   }
   else if(nav_id == "nav-emails") {
     $('#nav-emails').addClass('active');
-    $.ajax({url: "/infohound/emails/", type: "GET", dataType: "html", success: function (data) {
+    $.ajax({url: "/emails/", type: "GET", dataType: "html", success: function (data) {
       const content = document.getElementById("content");
       content.innerHTML = data;
       loadEmailTable()
@@ -586,7 +586,7 @@ function loadData(nav_id, domain_id) {
   }
   else if(nav_id == "nav-dorks") {
     $('#nav-dorks').addClass('active');
-    $.ajax({url: "/infohound/dorks/", type: "GET", dataType: "html", success: function (data) {
+    $.ajax({url: "/dorks/", type: "GET", dataType: "html", success: function (data) {
       const content = document.getElementById("content");
       content.innerHTML = data;
       loadDorks()
@@ -594,7 +594,7 @@ function loadData(nav_id, domain_id) {
   }
   else if(nav_id == "nav-tasks") {
     $('#nav-tasks').addClass('active');
-    $.ajax({url: "/infohound/tasks/", type: "GET", dataType: "html", success: function (data) {
+    $.ajax({url: "/tasks/", type: "GET", dataType: "html", success: function (data) {
       const content = document.getElementById("content");
       content.innerHTML = data;
       loadTasks()
@@ -678,7 +678,7 @@ $(document).on('click', 'button.task-executer', function() {
   
   tid = btn.attr("id")
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
-  url = "/infohound/execute_task?tid="+tid+"&domain_id="+domain_id
+  url = "/execute_task?tid="+tid+"&domain_id="+domain_id
   
   $.getJSON(url, function (data) {
     
@@ -729,7 +729,7 @@ $('#domain-list').on('click', '.nav-link .export_domain_graphml', function(event
   console.log("hola")
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
   var domain = $('#domain-list .nav-item .nav-link.active').attr('data-domain');
-  url = "/infohound/export_domain_graphml/"+domain_id
+  url = "/export_domain_graphml/"+domain_id
   $.getJSON(url, function (data) {
     if(data["error"]) {
       showToast(false, data["error"])
@@ -753,7 +753,7 @@ $('#domain-list').on('click', '.nav-link .export_domain_csv', function(event) {
   console.log("hola")
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
   var domain = $('#domain-list .nav-item .nav-link.active').attr('data-domain');
-  url = "/infohound/export_domain_csv/"+domain_id
+  url = "/export_domain_csv/"+domain_id
   $.getJSON(url, function (data) {
     if(data["error"]) {
       showToast(false, data["error"])
@@ -775,7 +775,7 @@ $('#domain-list').on('click', '.nav-link .export_domain_csv', function(event) {
 
 $('#deleteDomainButton').on('click', function() {
   var domain_id = $('#domain-list .nav-item .nav-link.active').attr('data-domain-id');
-  url = "/infohound/delete/"+domain_id
+  url = "/delete/"+domain_id
   $.getJSON(url, function (data) {
     if(data["error"]) {
       showToast(false, data["error"])
@@ -796,7 +796,7 @@ $('#addDomainButton').on('click', function() {
   var domain = $("#addDomainModalInput").val()
   var full_passive = $("#fullPassiveSwitch").prop("checked")
   console.log(full_passive)
-  url = "/infohound/domain/add/?domain="+domain+"&full_passive="+full_passive
+  url = "/domain/add/?domain="+domain+"&full_passive="+full_passive
   $.getJSON(url, function (data) {
     if(data["error"]) {
       showToast(false, data["error"])

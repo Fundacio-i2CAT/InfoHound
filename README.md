@@ -18,7 +18,7 @@ docker-compose up -d
 ```
 You can now access infohound navigating with your browser to:
 ```
-http://localhost:8000/infohound/
+http://localhost:8000/
 ```
 **NOTE:** You must add API Keys inside infohound_config.py file
 
@@ -37,7 +37,7 @@ InfoHound has 2 different types of modules, those which retreives data and those
 | Get Subdomains From URLs | Once some tasks have been performed, the URLs table will have a lot of entries. This task will check all the URLs to find new subdomains. |
 | Get URLs | It searches all URLs cached by Wayback Machine and saves them into the database. This will later help to discover other data entities like files or subdomains. |
 | Get Files from URLs | It loops through the URLs database table to find files and store them in the Files database table for later analysis. The files that will be retrieved are: doc, docx, ppt, pptx, pps, ppsx, xls, xlsx, odt, ods, odg, odp, sxw, sxc, sxi, pdf, wpd, svg, indd, rdp, ica, zip, rar |
-| Find Email | It looks for emails using queries to Google and Bing. |
+| Find Email | It looks for emails using queries to Google, Bing and leaked databases. |
 | Find People from Emails | Once some emails have been found, it can be useful to discover the person behind them. Also, it finds usernames from those people. |
 | Find Emails From URLs | Sometimes, the discovered URLs can contain sensitive information. This task retrieves all the emails from URL paths. |
 | Execute Dorks | It will execute the dorks defined in the dorks folder. Remember to group the dorks by categories (filename) to understand their objectives. |
@@ -57,6 +57,7 @@ InfoHound has 2 different types of modules, those which retreives data and those
 | Find Registered Services using Emails | It is possible to find services or social networks where an email has been used to create an account. This task will check if an email InfoHound has discovered has an account in Twitter, Adobe, Facebook, Imgur, Mewe, Parler, Rumble, Snapchat, Wordpress, and/or Duolingo. |
 | Check Breach | This task checks Firefox Monitor service to see if an email has been found in a data breach. Although it is a free service, it has a limitation of 10 queries per day. If Leak-Lookup API key is set, it also checks it. |
 | AI-Powered Profile Analisys | You can use the profile analysis task to employ an AI-powered tool that examines the metadata and creates a description for you. |
+| Get leaked passwords | Using Proxy Nova's free service, InfoHound can detect and display passwords from usernames found that have been leaked in the past. |
 
 ## :pill: Custom modules
 InfoHound lets you create custom modules, you just need to add your script inside `infohoudn/tool/custom_modules`. One custome module has been added as an example which uses [Holehe](https://github.com/megadose/holehe) tool to check if the emails previously are attached to an account on sites like Twitter, Instagram, Imgur and more than 120 others. 
