@@ -2,7 +2,7 @@ import time
 from infohound.models import People
 from infohound.tool.ai_assistant import ollama
 
-def summarize_profile(domain_id):
+def summarizeProfile(domain_id):
     queryset = People.objects.filter(domain_id=domain_id, ocupation_summary__contains="This profile doesn't have a description yet")
 
     for entry in queryset.iterator():

@@ -118,9 +118,9 @@ def discoverEmails(domain):
             text = urllib.parse.unquote(html.unescape(escaped_text))
             
             if response.status_code == 302 and ("htps://www.google.com/webhp" in text or "https://consent.google.com" in text):
-                raise GoogleCookiePolicies()
+                return emails
             elif "detected unusual traffic" in text:
-                raise GoogleCaptcha()
+                return emails
             #emails = emails + infohound_utils.extractEmails(domain, text)
             for e in infohound_utils.extractEmails(domain, text):
                 if e not in emails:

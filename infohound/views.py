@@ -121,7 +121,7 @@ def get_person_details(request, person_id):
     usernames = Usernames.objects.filter(people=person, domain_id=domain_id)
     for entry in usernames.iterator():
         password = entry.password if entry.password is not None else "-"
-        data["usernames"].append({"username":entry.username, "leaked":False, "password":password, "profiles": entry.profiles})
+        data["usernames"].append({"username":entry.username, "leaked":password!='-', "password":password, "profiles": entry.profiles})
         
     return JsonResponse(data, safe=False)
 

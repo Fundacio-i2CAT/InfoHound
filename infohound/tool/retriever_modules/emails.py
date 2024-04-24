@@ -9,6 +9,7 @@ from django.db import IntegrityError
 from infohound.tool.data_sources import google_data
 import infohound.tool.infohound_utils as infohound_utils
 from infohound.tool.data_sources import bing_data
+from infohound.tool.data_sources.leaks import proxy_nova
 from infohound.models import Domain,Emails, URLs, Results
 import infohound.infohound_config as config
 
@@ -46,6 +47,16 @@ def findEmails(domain_id):
 		if valid:
 			try:
 				Emails.objects.get_or_create(email=em, source="Bing", domain_id=domain_id)
+			except IntegrityError as e:
+				pass
+		else:
+			print("Not valid email found: " + email)
+	emails_leaked = proxy_nova.getEmailsFromLeaks(domain)
+	for email in emails_leaked:
+		(valid, em) = isValidEmail(email)
+		if valid:
+			try:
+				Emails.objects.get_or_create(email=em, source="ProxyNova", is_leaked=True, domain_id=domain_id)
 			except IntegrityError as e:
 				pass
 		else:

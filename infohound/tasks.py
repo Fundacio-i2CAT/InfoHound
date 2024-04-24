@@ -73,6 +73,10 @@ def canBeSpoofedTask(self, domain):
 def getProfilesTask(self, domain):
 	usernames_analysis.getProfiles(domain)
 
+@shared_task(bind=True, name="get_leaked_passwords")
+def getLeakedPasswordsTask(self, domain):
+	usernames_analysis.getLeakedPasswords(domain)
+
 @shared_task(bind=True, name="download_all_files")
 def downloadAllFilesTask(self, domain):
 	trio.run(files_analysis.download_all_files,domain)
@@ -98,8 +102,8 @@ def checkBreachTask(self, domain):
 	email_analysis.checkBreach(domain)
 
 @shared_task(bind=True, name="summarize_profile")
-def summarize_profile(self, domain):
-	people_analisys.summarize_profile(domain)
+def summarizeProfileTask(self, domain):
+	people_analisys.summarizeProfile(domain)
 
 # --------------CUSTOM--------------
 
