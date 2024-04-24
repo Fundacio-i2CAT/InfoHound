@@ -103,7 +103,7 @@ def checkBreachTask(self, domain):
 
 @shared_task(bind=True, name="summarize_profile")
 def summarizeProfileTask(self, domain):
-	people_analisys.summarize_profile(domain)
+	people_analisys.summarizeProfile(domain)
 
 # --------------CUSTOM--------------
 
