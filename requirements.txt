@@ -1,6 +1,6 @@
 beautifulsoup4==4.8.2
 celery==5.2.7
-Django==4.1.7
+Django==4.1.13
 dnspython==2.6.1
 email-validator==2.0.0.post2
 holehe==1.61
