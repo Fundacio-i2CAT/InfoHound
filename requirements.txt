@@ -14,7 +14,7 @@ python-pptx==0.6.21
 python-whois==0.8.0
 rarfile==4.0
 redis==4.5.4
-requests==2.28.1
+requests==2.31.0
 shodan==1.28.0
 svglib==1.5.1
 svgwrite==1.4.3
