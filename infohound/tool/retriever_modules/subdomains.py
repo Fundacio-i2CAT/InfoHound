@@ -28,9 +28,11 @@ def getSubdomains(domain_id):
 		save_dubdomain(sub,"HackerTarget",domain_id)
 
 def getSubdomainsFromURLS(domain_id):
+	domain = Domain.objects.get(id=domain_id).domain
 	queryset = URLs.objects.filter(domain_id=domain_id)
 	for entry in queryset.iterator():
 		loc = urlparse(entry.url).netloc
 		sub = loc.split(":")[0]
-		save_dubdomain(sub,entry.source,domain_id)
+		if domain in sub:
+			save_dubdomain(sub,entry.source,domain_id)
 		
